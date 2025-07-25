@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun add:*)",
+      "Bash(bun run:*)",
+      "WebFetch(domain:ui.aceternity.com)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": []
+  }
+}
