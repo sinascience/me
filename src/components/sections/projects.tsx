@@ -14,6 +14,7 @@ import {
   Zap
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function ProjectsSection() {
   const mainProject = {
@@ -262,13 +263,27 @@ export function ProjectsSection() {
             Currently focusing on expanding this portfolio with additional case studies and projects. 
             Each project will showcase different aspects of my technical expertise and problem-solving abilities.
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium"
-          >
-            Get In Touch
-          </motion.button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/projects">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center gap-2"
+              >
+                <ExternalLink className="h-4 w-4" />
+                View All Projects
+              </motion.button>
+            </Link>
+            <Link href="#contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-transparent border-2 border-zinc-700 text-zinc-300 rounded-lg font-medium hover:border-blue-500 hover:text-blue-400 transition-all duration-300"
+              >
+                Get In Touch
+              </motion.button>
+            </Link>
+          </div>
         </div>
       </motion.div>
     </section>
