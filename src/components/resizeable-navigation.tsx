@@ -44,7 +44,7 @@ export function ResizableNavigation() {
         />
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com/anisfajarfakhruddin"
+            href="https://github.com/sinascience"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg bg-zinc-900/50 backdrop-blur-sm border border-zinc-700/50 text-zinc-300 hover:text-blue-400 hover:border-blue-500/50 transition-all duration-300"
@@ -52,7 +52,7 @@ export function ResizableNavigation() {
             <Github className="h-4 w-4" />
           </a>
           <a
-            href="https://linkedin.com/in/anisfajarfakhruddin"
+            href="https://linkedin.com/in/anis-fajar-fakhruddin-33aa402ba/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg bg-zinc-900/50 backdrop-blur-sm border border-zinc-700/50 text-zinc-300 hover:text-blue-400 hover:border-blue-500/50 transition-all duration-300"
@@ -97,7 +97,7 @@ export function ResizableNavigation() {
           <div className="pt-6 border-t border-zinc-800/50">
             <div className="flex items-center justify-center gap-4">
               <a
-                href="https://github.com/anisfajarfakhruddin"
+                href="https://github.com/sinascience"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -106,7 +106,7 @@ export function ResizableNavigation() {
                 <Github className="h-5 w-5" />
               </a>
               <a
-                href="https://linkedin.com/in/anisfajarfakhruddin"
+                href="https://linkedin.com/in/anis-fajar-fakhruddin-33aa402ba/"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}

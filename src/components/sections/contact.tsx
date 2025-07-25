@@ -25,16 +25,16 @@ export function ContactSection() {
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "/in/anisfajarfakhruddin",
-      href: "https://linkedin.com/in/anisfajarfakhruddin",
+      value: "/in/anis-fajar-fakhruddin-33aa402ba/",
+      href: "https://linkedin.com/in/anis-fajar-fakhruddin-33aa402ba/",
       color: "text-indigo-400",
       description: "Professional networking"
     },
     {
       icon: Github,
       label: "GitHub",
-      value: "/anisfajarfakhruddin",
-      href: "https://github.com/anisfajarfakhruddin",
+      value: "/sinascience",
+      href: "https://github.com/sinascience",
       color: "text-purple-400",
       description: "Code repositories and contributions"
     },
