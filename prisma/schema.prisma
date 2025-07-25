@@ -1,0 +1,237 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String?
+  description String
+  image       String?
+  website     String?
+  repository  String?
+  status      String   @default("draft") // draft, published, archived
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  techStack   ProjectTech[]
+  metrics     ProjectMetric[]
+  features    ProjectFeature[]
+
+  @@map("projects")
+}
+
+model ProjectTech {
+  id        String  @id @default(cuid())
+  projectId String
+  name      String
+  order     Int     @default(0)
+  
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("project_tech")
+}
+
+model ProjectMetric {
+  id        String  @id @default(cuid())
+  projectId String
+  label     String
+  value     String
+  icon      String
+  color     String
+  order     Int     @default(0)
+  
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("project_metrics")
+}
+
+model ProjectFeature {
+  id          String  @id @default(cuid())
+  projectId   String
+  title       String
+  description String
+  impact      String?
+  order       Int     @default(0)
+  
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("project_features")
+}
+
+model Skill {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  color       String   // gradient colors
+  category    String   // frontend, backend, database, etc.
+  proficiency String   @default("advanced") // beginner, intermediate, advanced, expert
+  order       Int      @default(0)
+  status      String   @default("active") // active, inactive
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("skills")
+}
+
+model TechStack {
+  id       String @id @default(cuid())
+  name     String @unique
+  color    String // gradient colors
+  bg       String // background color
+  border   String // border color
+  category String // language, framework, database, tool, etc.
+  order    Int    @default(0)
+  status   String @default("active") // active, inactive
+
+  @@map("tech_stack")
+}
+
+model Experience {
+  id           String   @id @default(cuid())
+  title        String
+  company      String
+  period       String
+  location     String
+  type         String   // Current Role, Growth Phase, Foundation, etc.
+  description  String
+  color        String   // gradient colors
+  order        Int      @default(0)
+  status       String   @default("active") // active, inactive
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  achievements ExperienceAchievement[]
+  skills       ExperienceSkill[]
+
+  @@map("experiences")
+}
+
+model ExperienceAchievement {
+  id           String     @id @default(cuid())
+  experienceId String
+  achievement  String
+  order        Int        @default(0)
+  
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  @@map("experience_achievements")
+}
+
+model ExperienceSkill {
+  id           String     @id @default(cuid())
+  experienceId String
+  skill        String
+  order        Int        @default(0)
+  
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  @@map("experience_skills")
+}
+
+model ContactMethod {
+  id          String @id @default(cuid())
+  icon        String
+  label       String
+  value       String
+  href        String
+  color       String
+  description String
+  order       Int    @default(0)
+  status      String @default("active") // active, inactive
+
+  @@map("contact_methods")
+}
+
+model Blog {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String
+  content     String
+  image       String?
+  author      String    @default("Anis Fajar Fakhruddin")
+  status      String    @default("draft") // draft, published, archived
+  featured    Boolean   @default(false)
+  views       Int       @default(0)
+  readTime    Int       @default(5) // minutes
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  tags        BlogTag[]
+  categories  BlogCategory[]
+
+  @@map("blogs")
+}
+
+model Tag {
+  id    String @id @default(cuid())
+  name  String @unique
+  slug  String @unique
+  color String @default("#3B82F6")
+
+  // Relations
+  blogs BlogTag[]
+
+  @@map("tags")
+}
+
+model Category {
+  id          String @id @default(cuid())
+  name        String @unique
+  slug        String @unique
+  description String?
+  color       String @default("#3B82F6")
+
+  // Relations
+  blogs BlogCategory[]
+
+  @@map("categories")
+}
+
+model BlogTag {
+  blogId String
+  tagId  String
+
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([blogId, tagId])
+  @@map("blog_tags")
+}
+
+model BlogCategory {
+  blogId     String
+  categoryId String
+
+  blog     Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([blogId, categoryId])
+  @@map("blog_categories")
+}
+
+model Settings {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+  type  String @default("string") // string, number, boolean, json
+
+  @@map("settings")
+}

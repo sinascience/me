@@ -6,10 +6,17 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "tsx scripts/migrate-data.ts",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@prisma/client": "^6.12.0",
+    "@supabase/supabase-js": "^2.52.1",
     "@tabler/icons-react": "^3.34.1",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@types/nodemailer": "^6.4.17",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.9",
@@ -18,6 +25,7 @@
     "mini-svg-data-uri": "^1.4.4",
     "next": "15.4.3",
     "nodemailer": "^7.0.5",
+    "prisma": "^6.12.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.1"
@@ -31,6 +39,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.3",
     "tailwindcss": "^4",
+    "tsx": "^4.20.3",
     "typescript": "^5"
   }
 }

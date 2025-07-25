@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -15,6 +15,7 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
+import { ContactMethod } from "@/types/cms";
 
 interface FormData {
   name: string;
@@ -28,6 +29,18 @@ interface FormStatus {
   message: string;
 }
 
+// Icon mapping for contact methods
+const iconMap: { [key: string]: any } = {
+  Mail,
+  Github,
+  Linkedin,
+  MessageCircle,
+  MapPin,
+  Calendar,
+  Globe,
+  Coffee,
+};
+
 export function ContactSection() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -40,6 +53,27 @@ export function ContactSection() {
     type: "idle",
     message: "",
   });
+
+  const [contactMethods, setContactMethods] = useState<ContactMethod[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchContactMethods() {
+      try {
+        const response = await fetch('/api/cms/contact-methods?active=true');
+        if (response.ok) {
+          const data = await response.json();
+          setContactMethods(data);
+        }
+      } catch (error) {
+        console.error('Error fetching contact methods:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchContactMethods();
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -88,41 +122,6 @@ export function ContactSection() {
     }
   };
 
-  const contactMethods = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "sina4science@gmail.com",
-      href: "mailto:sina4science@gmail.com",
-      color: "text-blue-400",
-      description: "Best for professional inquiries",
-    },
-    {
-      icon: Linkedin,
-      label: "LinkedIn",
-      value: "/in/anis-fajar-fakhruddin-33aa402ba/",
-      href: "https://linkedin.com/in/anis-fajar-fakhruddin-33aa402ba/",
-      color: "text-indigo-400",
-      description: "Professional networking",
-    },
-    {
-      icon: Github,
-      label: "GitHub",
-      value: "/sinascience",
-      href: "https://github.com/sinascience",
-      color: "text-purple-400",
-      description: "Code repositories and contributions",
-    },
-    {
-      icon: MessageCircle,
-      label: "Discord",
-      value: "@belpoizz",
-      href: "https://discord.com/users/858389159555497994",
-      color: "text-indigo-400",
-      description: "Quick communication",
-    },
-  ];
-
   const availability = [
     { label: "Location", value: "Indonesia", icon: MapPin },
     { label: "Timezone", value: "UTC+7 (WIB)", icon: Globe },
@@ -166,41 +165,52 @@ export function ContactSection() {
             Get In Touch
           </h3>
 
-          <div className="space-y-6 mb-12">
-            {contactMethods.map((method, index) => (
-              <motion.a
-                key={index}
-                href={method.href}
-                target={method.href.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  method.href.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.02 }}
-                className="flex items-center p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-blue-500/50 transition-all duration-300 group"
-              >
-                <div
-                  className={`p-3 rounded-lg bg-zinc-800 ${method.color} mr-4 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <method.icon className="h-6 w-6" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-zinc-200 mb-1">
-                    {method.label}
-                  </h4>
-                  <p className="text-zinc-300 font-mono text-sm">
-                    {method.value}
-                  </p>
-                  <p className="text-zinc-500 text-sm">{method.description}</p>
-                </div>
-              </motion.a>
-            ))}
-          </div>
+          {loading ? (
+            <div className="space-y-6 mb-12">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-zinc-800 rounded-xl h-20"></div>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-6 mb-12">
+              {contactMethods.map((method, index) => {
+                const IconComponent = iconMap[method.icon] || Mail;
+                return (
+                  <motion.a
+                    key={method.id}
+                    href={method.href}
+                    target={method.href.startsWith("http") ? "_blank" : undefined}
+                    rel={
+                      method.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.02 }}
+                    className="flex items-center p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-blue-500/50 transition-all duration-300 group"
+                  >
+                    <div
+                      className={`p-3 rounded-lg bg-zinc-800 ${method.color} mr-4 group-hover:scale-110 transition-transform duration-300`}
+                    >
+                      <IconComponent className="h-6 w-6" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-zinc-200 mb-1">
+                        {method.label}
+                      </h4>
+                      <p className="text-zinc-300 font-mono text-sm">
+                        {method.value}
+                      </p>
+                      <p className="text-zinc-500 text-sm">{method.description}</p>
+                    </div>
+                  </motion.a>
+                );
+              })}
+            </div>
+          )}
 
           {/* Availability */}
           <div className="bg-zinc-900/30 border border-zinc-800 rounded-xl p-6">

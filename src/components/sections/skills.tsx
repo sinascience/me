@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { 
   Code2, 
@@ -10,59 +10,79 @@ import {
   Zap,
   Shield,
 } from "lucide-react";
+import { Skill, TechStack } from "@/types/cms";
+
+// Icon mapping for skills
+const iconMap: { [key: string]: any } = {
+  Code2,
+  Database,
+  Cloud,
+  Server,
+  Layers,
+  Zap,
+  Shield,
+};
 
 export function SkillsSection() {
-  const skills = [
-    {
-      title: "Frontend Development",
-      description: "Modern React, Next.js, TypeScript, and Angular applications with exceptional user experiences",
-      header: <div className="flex h-full w-full bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg items-center justify-center"><Code2 className="h-12 w-12 text-white" /></div>,
-      icon: <Code2 className="h-4 w-4 text-blue-400" />,
-      className: "md:col-span-2",
-    },
-    {
-      title: "Backend Architecture",
-      description: "Scalable PHP, Laravel, Go Fiber, and Node.js solutions handling enterprise-level traffic",
-      header: <div className="flex h-full w-full bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg items-center justify-center"><Server className="h-12 w-12 text-white" /></div>,
-      icon: <Server className="h-4 w-4 text-purple-400" />,
-      className: "md:col-span-1",
-    },
-    {
-      title: "Database Systems",
-      description: "MySQL, PostgreSQL, Redis, MongoDB - Optimized for performance and scalability",
-      header: <div className="flex h-full w-full bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg items-center justify-center"><Database className="h-12 w-12 text-white" /></div>,
-      icon: <Database className="h-4 w-4 text-green-400" />,
-      className: "md:col-span-1",
-    },
-    {
-      title: "Cloud Infrastructure",
-      description: "Google Cloud Platform, AWS, Docker deployment and infrastructure management",
-      header: <div className="flex h-full w-full bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg items-center justify-center"><Cloud className="h-12 w-12 text-white" /></div>,
-      icon: <Cloud className="h-4 w-4 text-cyan-400" />,
-      className: "md:col-span-2",
-    },
-    {
-      title: "API Integration",
-      description: "Payment gateways, chat systems, video calling, and third-party service integrations",
-      header: <div className="flex h-full w-full bg-gradient-to-br from-orange-400 to-red-500 rounded-lg items-center justify-center"><Layers className="h-12 w-12 text-white" /></div>,
-      icon: <Layers className="h-4 w-4 text-orange-400" />,
-      className: "md:col-span-1",
-    },
-    {
-      title: "Performance Optimization",
-      description: "60% query optimization, caching strategies, and scalable architecture design",
-      header: <div className="flex h-full w-full bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg items-center justify-center"><Zap className="h-12 w-12 text-white" /></div>,
-      icon: <Zap className="h-4 w-4 text-yellow-400" />,
-      className: "md:col-span-1",
-    },
-    {
-      title: "Security & Compliance",
-      description: "Healthcare application security, HIPAA considerations, and best practices implementation",
-      header: <div className="flex h-full w-full bg-gradient-to-br from-indigo-400 to-purple-500 rounded-lg items-center justify-center"><Shield className="h-12 w-12 text-white" /></div>,
-      icon: <Shield className="h-4 w-4 text-indigo-400" />,
-      className: "md:col-span-1",
-    },
-  ];
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [techStack, setTechStack] = useState<TechStack[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [skillsResponse, techStackResponse] = await Promise.all([
+          fetch('/api/cms/skills?active=true'),
+          fetch('/api/cms/tech-stack?active=true')
+        ]);
+
+        if (skillsResponse.ok && techStackResponse.ok) {
+          const [skillsData, techStackData] = await Promise.all([
+            skillsResponse.json(),
+            techStackResponse.json()
+          ]);
+          
+          setSkills(skillsData);
+          setTechStack(techStackData);
+        }
+      } catch (error) {
+        console.error('Error fetching skills data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center">
+          <div className="animate-pulse">
+            <div className="h-12 bg-zinc-800 rounded mb-4 max-w-md mx-auto"></div>
+            <div className="h-6 bg-zinc-800 rounded mb-8 max-w-2xl mx-auto"></div>
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-zinc-800 rounded-2xl h-48"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Dynamic grid layout based on skill count
+  const getGridClassName = (index: number, total: number) => {
+    // First skill spans 2 columns, others span 1
+    if (index === 0) return "md:col-span-2";
+    
+    // If we have exactly 7 skills, make the last two span 2 columns
+    if (total === 7 && index >= total - 2) return "md:col-span-2";
+    
+    return "md:col-span-1";
+  };
 
   return (
     <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -84,107 +104,110 @@ export function SkillsSection() {
       </motion.div>
 
       <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {skills.map((item, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 50, rotateX: -15 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.6, delay: i * 0.1, type: "spring", bounce: 0.3 }}
-            viewport={{ once: true }}
-            whileHover={{ 
-              y: -12,
-              rotateX: 5,
-              rotateY: 5,
-              scale: 1.02,
-            }}
-            className={`${item.className} group cursor-pointer`}
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <div className="bg-zinc-900/60 backdrop-blur-sm border border-zinc-800 rounded-2xl p-8 h-full hover:border-blue-500/50 transition-all duration-500 ease-out group-hover:shadow-2xl group-hover:shadow-blue-500/10 relative overflow-hidden">
-              {/* Animated background gradient */}
-              <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                animate={{
-                  background: [
-                    "radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-                    "radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-                    "radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-                    "radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-                    "radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)"
-                  ]
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              
-              {/* Icon container with animation */}
-              <motion.div 
-                className="mb-6 relative z-10"
-                whileHover={{ scale: 1.1, rotateZ: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-600/20 border border-blue-500/30 flex items-center justify-center group-hover:from-blue-500/30 group-hover:to-indigo-600/30 transition-all duration-500">
-                  <motion.div
-                    whileHover={{ scale: 1.2 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    {React.cloneElement(item.icon, { 
-                      className: "h-8 w-8 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" 
-                    })}
-                  </motion.div>
-                </div>
-              </motion.div>
-
-              {/* Content */}
-              <div className="relative z-10">
-                <motion.h3 
-                  className="text-xl font-bold text-zinc-100 mb-4 group-hover:text-blue-100 transition-colors duration-300"
-                  whileHover={{ x: 5 }}
+        {skills.map((skill, i) => {
+          const IconComponent = iconMap[skill.icon] || Code2;
+          const gridClassName = getGridClassName(i, skills.length);
+          
+          return (
+            <motion.div
+              key={skill.id}
+              initial={{ opacity: 0, y: 50, rotateX: -15 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.1, type: "spring", bounce: 0.3 }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                y: -12,
+                rotateX: 5,
+                rotateY: 5,
+                scale: 1.02,
+              }}
+              className={`${gridClassName} group cursor-pointer`}
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <div className="bg-zinc-900/60 backdrop-blur-sm border border-zinc-800 rounded-2xl p-8 h-full hover:border-blue-500/50 transition-all duration-500 ease-out group-hover:shadow-2xl group-hover:shadow-blue-500/10 relative overflow-hidden">
+                {/* Animated background gradient */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  animate={{
+                    background: [
+                      "radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
+                      "radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
+                      "radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
+                      "radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
+                      "radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)"
+                    ]
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+                
+                {/* Icon container with animation */}
+                <motion.div 
+                  className="mb-6 relative z-10"
+                  whileHover={{ scale: 1.1, rotateZ: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  {item.title}
-                </motion.h3>
-                <motion.p 
-                  className="text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors duration-300"
-                  whileHover={{ x: 3 }}
-                  transition={{ type: "spring", stiffness: 300, delay: 0.05 }}
-                >
-                  {item.description}
-                </motion.p>
-              </div>
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-600/20 border border-blue-500/30 flex items-center justify-center group-hover:from-blue-500/30 group-hover:to-indigo-600/30 transition-all duration-500">
+                    <motion.div
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <IconComponent className="h-8 w-8 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
+                    </motion.div>
+                  </div>
+                </motion.div>
 
-              {/* Floating elements */}
-              <motion.div
-                className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full opacity-60"
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.6, 1, 0.6],
-                }}
-                transition={{
-                  duration: 2 + i * 0.3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <motion.div
-                className="absolute bottom-4 left-4 w-1 h-1 bg-indigo-400 rounded-full opacity-40"
-                animate={{
-                  scale: [1, 2, 1],
-                  opacity: [0.4, 0.8, 0.4],
-                }}
-                transition={{
-                  duration: 3 + i * 0.2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1
-                }}
-              />
-            </div>
-          </motion.div>
-        ))}
+                {/* Content */}
+                <div className="relative z-10">
+                  <motion.h3 
+                    className="text-xl font-bold text-zinc-100 mb-4 group-hover:text-blue-100 transition-colors duration-300"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {skill.title}
+                  </motion.h3>
+                  <motion.p 
+                    className="text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors duration-300"
+                    whileHover={{ x: 3 }}
+                    transition={{ type: "spring", stiffness: 300, delay: 0.05 }}
+                  >
+                    {skill.description}
+                  </motion.p>
+                </div>
+
+                {/* Floating elements */}
+                <motion.div
+                  className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full opacity-60"
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [0.6, 1, 0.6],
+                  }}
+                  transition={{
+                    duration: 2 + i * 0.3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <motion.div
+                  className="absolute bottom-4 left-4 w-1 h-1 bg-indigo-400 rounded-full opacity-40"
+                  animate={{
+                    scale: [1, 2, 1],
+                    opacity: [0.4, 0.8, 0.4],
+                  }}
+                  transition={{
+                    duration: 3 + i * 0.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1
+                  }}
+                />
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Tech Stack Overview */}
@@ -217,45 +240,7 @@ export function SkillsSection() {
           className="flex gap-4 w-fit"
         >
           {/* Double the array to create seamless loop */}
-          {[
-            { name: "TypeScript", color: "from-blue-400 to-blue-600", bg: "bg-blue-500/10", border: "border-blue-500/30" },
-            { name: "React", color: "from-cyan-400 to-cyan-600", bg: "bg-cyan-500/10", border: "border-cyan-500/30" },
-            { name: "Next.js", color: "from-gray-300 to-gray-500", bg: "bg-gray-500/10", border: "border-gray-500/30" },
-            { name: "Angular", color: "from-red-400 to-red-600", bg: "bg-red-500/10", border: "border-red-500/30" },
-            { name: "PHP", color: "from-purple-400 to-purple-600", bg: "bg-purple-500/10", border: "border-purple-500/30" },
-            { name: "Laravel", color: "from-orange-400 to-red-500", bg: "bg-orange-500/10", border: "border-orange-500/30" },
-            { name: "Go", color: "from-cyan-300 to-blue-400", bg: "bg-cyan-400/10", border: "border-cyan-400/30" },
-            { name: "Node.js", color: "from-green-400 to-green-600", bg: "bg-green-500/10", border: "border-green-500/30" },
-            { name: "MySQL", color: "from-blue-500 to-indigo-600", bg: "bg-blue-600/10", border: "border-blue-600/30" },
-            { name: "PostgreSQL", color: "from-blue-600 to-indigo-700", bg: "bg-indigo-600/10", border: "border-indigo-600/30" },
-            { name: "Redis", color: "from-red-500 to-red-700", bg: "bg-red-600/10", border: "border-red-600/30" },
-            { name: "MongoDB", color: "from-green-500 to-green-700", bg: "bg-green-600/10", border: "border-green-600/30" },
-            { name: "Docker", color: "from-blue-400 to-cyan-500", bg: "bg-blue-500/10", border: "border-blue-500/30" },
-            { name: "GCP", color: "from-yellow-400 to-orange-500", bg: "bg-yellow-500/10", border: "border-yellow-500/30" },
-            { name: "AWS", color: "from-orange-400 to-yellow-500", bg: "bg-orange-500/10", border: "border-orange-500/30" },
-            { name: "Git", color: "from-orange-500 to-red-500", bg: "bg-orange-600/10", border: "border-orange-600/30" },
-            { name: "Figma", color: "from-purple-400 to-pink-500", bg: "bg-purple-500/10", border: "border-purple-500/30" },
-            { name: "WordPress", color: "from-blue-600 to-indigo-600", bg: "bg-blue-700/10", border: "border-blue-700/30" },
-            // Duplicate for seamless loop
-            { name: "TypeScript", color: "from-blue-400 to-blue-600", bg: "bg-blue-500/10", border: "border-blue-500/30" },
-            { name: "React", color: "from-cyan-400 to-cyan-600", bg: "bg-cyan-500/10", border: "border-cyan-500/30" },
-            { name: "Next.js", color: "from-gray-300 to-gray-500", bg: "bg-gray-500/10", border: "border-gray-500/30" },
-            { name: "Angular", color: "from-red-400 to-red-600", bg: "bg-red-500/10", border: "border-red-500/30" },
-            { name: "PHP", color: "from-purple-400 to-purple-600", bg: "bg-purple-500/10", border: "border-purple-500/30" },
-            { name: "Laravel", color: "from-orange-400 to-red-500", bg: "bg-orange-500/10", border: "border-orange-500/30" },
-            { name: "Go", color: "from-cyan-300 to-blue-400", bg: "bg-cyan-400/10", border: "border-cyan-400/30" },
-            { name: "Node.js", color: "from-green-400 to-green-600", bg: "bg-green-500/10", border: "border-green-500/30" },
-            { name: "MySQL", color: "from-blue-500 to-indigo-600", bg: "bg-blue-600/10", border: "border-blue-600/30" },
-            { name: "PostgreSQL", color: "from-blue-600 to-indigo-700", bg: "bg-indigo-600/10", border: "border-indigo-600/30" },
-            { name: "Redis", color: "from-red-500 to-red-700", bg: "bg-red-600/10", border: "border-red-600/30" },
-            { name: "MongoDB", color: "from-green-500 to-green-700", bg: "bg-green-600/10", border: "border-green-600/30" },
-            { name: "Docker", color: "from-blue-400 to-cyan-500", bg: "bg-blue-500/10", border: "border-blue-500/30" },
-            { name: "GCP", color: "from-yellow-400 to-orange-500", bg: "bg-yellow-500/10", border: "border-yellow-500/30" },
-            { name: "AWS", color: "from-orange-400 to-yellow-500", bg: "bg-orange-500/10", border: "border-orange-500/30" },
-            { name: "Git", color: "from-orange-500 to-red-500", bg: "bg-orange-600/10", border: "border-orange-600/30" },
-            { name: "Figma", color: "from-purple-400 to-pink-500", bg: "bg-purple-500/10", border: "border-purple-500/30" },
-            { name: "WordPress", color: "from-blue-600 to-indigo-600", bg: "bg-blue-700/10", border: "border-blue-700/30" }
-          ].map((tech, index) => (
+          {[...techStack, ...techStack].map((tech, index) => (
             <motion.div
               key={`${tech.name}-${index}`}
               whileHover={{ 

@@ -1,60 +1,48 @@
 "use client";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, TrendingUp, Users, Database, Code } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Experience } from "@/types/cms";
 
 export function ExperienceSection() {
-  const experiences = [
-    {
-      title: "Senior Web Developer",
-      company: "Venturo Pro Indonesia",
-      period: "2024 - Present",
-      location: "Indonesia",
-      type: "Current Role",
-      description: "Leading technical architecture and development for Hayyu Skin Clinic's comprehensive ERP system, serving as the main technical decision-maker.",
-      achievements: [
-        "Lead technical development for healthcare application serving 400K+ monthly users",
-        "Manage application performance handling 5,000+ annual transactions",
-        "Implement comprehensive code refactoring initiatives improving maintainability",
-        "Mentor junior developers and establish coding standards across the team",
-        "Collaborate with stakeholders to translate business requirements into technical solutions"
-      ],
-      skills: ["Technical Leadership", "Architecture Design", "Code Review", "Mentoring", "Stakeholder Management"],
-      color: "from-blue-400 to-indigo-500"
-    },
-    {
-      title: "Junior Web Developer",
-      company: "Venturo Pro Indonesia", 
-      period: "2022 - 2024",
-      location: "Indonesia",
-      type: "Growth Phase",
-      description: "Core developer for building and maintaining the Hayyu Skin Clinic ERP system, focusing on full-stack development while mastering enterprise technologies.",
-      achievements: [
-        "Developed comprehensive ERP system serving 11 clinic outlets across Java",
-        "Implemented solutions handling 3GB+ database storage and 1.5TB+ cloud files",
-        "Built responsive applications using PHP Slim framework with AngularJS",
-        "Created SEO-optimized landing pages with Next.js contributing to 400K monthly views",
-        "Developed mobile application features achieving 10K+ Google Play downloads"
-      ],
-      skills: ["PHP Slim", "AngularJS", "Next.js", "MySQL", "Google Cloud", "Mobile Development"],
-      color: "from-green-400 to-emerald-500"
-    },
-    {
-      title: "Trainee Programmer",
-      company: "Venturo Pro Indonesia",
-      period: "2022 (4 months)",
-      location: "Indonesia", 
-      type: "Foundation",
-      description: "Intensive training program focusing on modern web development frameworks and database management, establishing foundation for full-stack career.",
-      achievements: [
-        "Mastered Angular and Laravel frameworks through hands-on projects",
-        "Built complete CRUD applications with advanced features",
-        "Learned industry best practices for web application development",
-        "Gained proficiency in both frontend and backend technologies"
-      ],
-      skills: ["Angular", "Laravel", "Database Design", "CRUD Operations", "Best Practices"],
-      color: "from-purple-400 to-pink-500"
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchExperiences() {
+      try {
+        const response = await fetch('/api/cms/experience?active=true');
+        if (response.ok) {
+          const data = await response.json();
+          setExperiences(data);
+        }
+      } catch (error) {
+        console.error('Error fetching experiences:', error);
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+
+    fetchExperiences();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="experience" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center">
+          <div className="animate-pulse">
+            <div className="h-12 bg-zinc-800 rounded mb-4 max-w-md mx-auto"></div>
+            <div className="h-6 bg-zinc-800 rounded mb-8 max-w-2xl mx-auto"></div>
+            <div className="space-y-8">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="bg-zinc-800 rounded-xl h-64"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="experience" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -81,7 +69,7 @@ export function ExperienceSection() {
 
         {experiences.map((exp, index) => (
           <motion.div
-            key={index}
+            key={exp.id}
             initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -125,38 +113,42 @@ export function ExperienceSection() {
                 <p className="text-zinc-300 mb-6 leading-relaxed">{exp.description}</p>
 
                 {/* Achievements */}
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-zinc-200 mb-3 flex items-center">
-                    <Code className="h-4 w-4 mr-2 text-indigo-400" />
-                    Key Achievements
-                  </h4>
-                  <ul className="space-y-2">
-                    {exp.achievements.map((achievement, i) => (
-                      <li key={i} className="text-zinc-300 text-sm flex items-start">
-                        <span className="text-blue-400 mr-2 mt-1">▸</span>
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {exp.achievements.length > 0 && (
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-zinc-200 mb-3 flex items-center">
+                      <Code className="h-4 w-4 mr-2 text-indigo-400" />
+                      Key Achievements
+                    </h4>
+                    <ul className="space-y-2">
+                      {exp.achievements.map((achievement) => (
+                        <li key={achievement.id} className="text-zinc-300 text-sm flex items-start">
+                          <span className="text-blue-400 mr-2 mt-1">▸</span>
+                          {achievement.achievement}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 {/* Skills */}
-                <div>
-                  <h4 className="text-lg font-semibold text-zinc-200 mb-3 flex items-center">
-                    <Database className="h-4 w-4 mr-2 text-green-400" />
-                    Technologies & Skills
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.skills.map((skill, i) => (
-                      <span
-                        key={i}
-                        className="text-xs px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full border border-zinc-700"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                {exp.skills.length > 0 && (
+                  <div>
+                    <h4 className="text-lg font-semibold text-zinc-200 mb-3 flex items-center">
+                      <Database className="h-4 w-4 mr-2 text-green-400" />
+                      Technologies & Skills
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.skills.map((skill) => (
+                        <span
+                          key={skill.id}
+                          className="text-xs px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full border border-zinc-700"
+                        >
+                          {skill.skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </motion.div>
             </div>
           </motion.div>
