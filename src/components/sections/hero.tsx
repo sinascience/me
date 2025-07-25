@@ -2,13 +2,14 @@
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { motion } from "framer-motion";
 import {
-  Download,
+  FileText,
   MapPin,
   Calendar,
   Code2,
   Database,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function HeroSection() {
   const words = [
@@ -105,15 +106,17 @@ export function HeroSection() {
                 >
                   View My Work
                 </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className="px-8 py-4 bg-zinc-900/50 backdrop-blur-sm border-2 border-zinc-700 text-zinc-300 rounded-xl font-medium hover:border-blue-500 hover:text-blue-400 hover:bg-blue-500/5 transition-all duration-300 flex items-center justify-center"
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  Download Resume
-                </motion.button>
+                <Link href="/resume">
+                  <motion.button
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    className="px-8 py-4 bg-zinc-900/50 backdrop-blur-sm border-2 border-zinc-700 text-zinc-300 rounded-xl font-medium hover:border-blue-500 hover:text-blue-400 hover:bg-blue-500/5 transition-all duration-300 flex items-center justify-center"
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    View Resume
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           </motion.div>
