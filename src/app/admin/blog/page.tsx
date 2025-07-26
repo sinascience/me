@@ -36,7 +36,7 @@ export default function AdminBlogPage() {
   const fetchBlogs = async () => {
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch('/api/cms/blog', {
+      const response = await fetch('/api/admin/blogs', {
         headers: { 'Authorization': `Bearer ${auth}` }
       });
       
@@ -54,7 +54,7 @@ export default function AdminBlogPage() {
   const toggleFeatured = async (blogId: string, featured: boolean) => {
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/blog/${blogId}`, {
+      const response = await fetch(`/api/admin/blogs/${blogId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export default function AdminBlogPage() {
     
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/blog/${blogId}`, {
+      const response = await fetch(`/api/admin/blogs/${blogId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export default function AdminBlogPage() {
 
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/blog/${blogId}`, {
+      const response = await fetch(`/api/admin/blogs/${blogId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${auth}` }
       });
@@ -191,6 +191,20 @@ export default function AdminBlogPage() {
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
+                      {/* Featured Image */}
+                      {blog.image && (
+                        <div className="mb-4">
+                          <img
+                            src={blog.image}
+                            alt={blog.title}
+                            className="w-full h-32 object-cover rounded-lg border border-zinc-700"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        </div>
+                      )}
+                      
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-xl font-bold text-zinc-100">{blog.title}</h3>
                         {blog.featured && (

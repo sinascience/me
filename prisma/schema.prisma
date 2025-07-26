@@ -29,6 +29,7 @@ model Project {
   techStack   ProjectTech[]
   metrics     ProjectMetric[]
   features    ProjectFeature[]
+  images      ProjectImage[]
 
   @@map("projects")
 }
@@ -69,6 +70,17 @@ model ProjectFeature {
   project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@map("project_features")
+}
+
+model ProjectImage {
+  id        String  @id @default(cuid())
+  projectId String
+  url       String
+  order     Int     @default(0)
+  
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("project_images")
 }
 
 model Skill {

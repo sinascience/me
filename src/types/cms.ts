@@ -16,6 +16,7 @@ export interface Project {
   techStack: ProjectTech[];
   metrics: ProjectMetric[];
   features: ProjectFeature[];
+  images: ProjectImage[];
 }
 
 export interface ProjectTech {
@@ -41,6 +42,13 @@ export interface ProjectFeature {
   title: string;
   description: string;
   impact?: string;
+  order: number;
+}
+
+export interface ProjectImage {
+  id: string;
+  projectId: string;
+  url: string;
   order: number;
 }
 

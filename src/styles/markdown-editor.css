@@ -1,0 +1,179 @@
+/* Dark theme for React MD Editor */
+[data-color-mode="dark"] {
+  --color-canvas-default: #18181b !important;
+  --color-canvas-subtle: #27272a !important;
+  --color-border-default: #3f3f46 !important;
+  --color-border-muted: #52525b !important;
+  --color-neutral-muted: #71717a !important;
+  --color-fg-default: #f4f4f5 !important;
+  --color-fg-muted: #a1a1aa !important;
+  --color-fg-subtle: #d4d4d8 !important;
+  --color-accent-fg: #3b82f6 !important;
+  --color-accent-emphasis: #2563eb !important;
+  --color-danger-fg: #ef4444 !important;
+  --color-success-fg: #10b981 !important;
+  --color-attention-fg: #f59e0b !important;
+}
+
+/* Editor container styling */
+.w-md-editor {
+  background-color: #18181b !important;
+  border: 1px solid #3f3f46 !important;
+  border-radius: 0.5rem !important;
+}
+
+.w-md-editor.w-md-editor-focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 1px #3b82f6 !important;
+}
+
+/* Toolbar styling */
+.w-md-editor-toolbar {
+  background-color: #27272a !important;
+  border-bottom: 1px solid #3f3f46 !important;
+  padding: 8px !important;
+}
+
+.w-md-editor-toolbar-child > ul {
+  background-color: transparent !important;
+}
+
+.w-md-editor-toolbar ul li button {
+  background-color: transparent !important;
+  border: none !important;
+  color: #a1a1aa !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+.w-md-editor-toolbar ul li button:hover {
+  background-color: #3f3f46 !important;
+  color: #f4f4f5 !important;
+}
+
+.w-md-editor-toolbar ul li button.active {
+  background-color: #3b82f6 !important;
+  color: white !important;
+}
+
+/* Text area styling - Fix input text color */
+.w-md-editor-text-textarea,
+.w-md-editor-text-input,
+.w-md-editor-text {
+  background-color: #18181b !important;
+  color: #f4f4f5 !important;
+  border: none !important;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, 'Monaco', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+/* Specifically target the textarea where you type */
+.w-md-editor textarea {
+  color: #f4f4f5 !important;
+}
+
+.w-md-editor-text-textarea::placeholder {
+  color: #71717a !important;
+}
+
+/* Preview area styling */
+.w-md-editor-preview {
+  background-color: #18181b !important;
+  color: #f4f4f5 !important;
+  padding: 16px !important;
+}
+
+.w-md-editor-preview .wmde-markdown {
+  background-color: transparent !important;
+  color: #f4f4f5 !important;
+}
+
+.w-md-editor-preview .wmde-markdown h1,
+.w-md-editor-preview .wmde-markdown h2,
+.w-md-editor-preview .wmde-markdown h3,
+.w-md-editor-preview .wmde-markdown h4,
+.w-md-editor-preview .wmde-markdown h5,
+.w-md-editor-preview .wmde-markdown h6 {
+  color: #f4f4f5 !important;
+  border-bottom-color: #3f3f46 !important;
+}
+
+.w-md-editor-preview .wmde-markdown p,
+.w-md-editor-preview .wmde-markdown li {
+  color: #d4d4d8 !important;
+}
+
+.w-md-editor-preview .wmde-markdown code {
+  background-color: #27272a !important;
+  color: #f59e0b !important;
+  border: 1px solid #3f3f46 !important;
+  padding: 2px 4px !important;
+  border-radius: 4px !important;
+}
+
+.w-md-editor-preview .wmde-markdown pre {
+  background-color: #0f0f0f !important;
+  border: 1px solid #3f3f46 !important;
+  border-radius: 6px !important;
+}
+
+.w-md-editor-preview .wmde-markdown pre code {
+  background-color: transparent !important;
+  border: none !important;
+  color: #f4f4f5 !important;
+}
+
+.w-md-editor-preview .wmde-markdown blockquote {
+  border-left-color: #3b82f6 !important;
+  background-color: #1e1e24 !important;
+  color: #d4d4d8 !important;
+}
+
+.w-md-editor-preview .wmde-markdown a {
+  color: #3b82f6 !important;
+}
+
+.w-md-editor-preview .wmde-markdown a:hover {
+  color: #60a5fa !important;
+}
+
+/* Table styling */
+.w-md-editor-preview .wmde-markdown table {
+  border-color: #3f3f46 !important;
+}
+
+.w-md-editor-preview .wmde-markdown table th,
+.w-md-editor-preview .wmde-markdown table td {
+  border-color: #3f3f46 !important;
+  background-color: transparent !important;
+}
+
+.w-md-editor-preview .wmde-markdown table th {
+  background-color: #27272a !important;
+}
+
+
+/* Scrollbar styling */
+.w-md-editor-text::-webkit-scrollbar,
+.w-md-editor-preview::-webkit-scrollbar {
+  width: 8px;
+}
+
+.w-md-editor-text::-webkit-scrollbar-track,
+.w-md-editor-preview::-webkit-scrollbar-track {
+  background: #27272a;
+  border-radius: 4px;
+}
+
+.w-md-editor-text::-webkit-scrollbar-thumb,
+.w-md-editor-preview::-webkit-scrollbar-thumb {
+  background: #52525b;
+  border-radius: 4px;
+}
+
+.w-md-editor-text::-webkit-scrollbar-thumb:hover,
+.w-md-editor-preview::-webkit-scrollbar-thumb:hover {
+  background: #71717a;
+}

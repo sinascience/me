@@ -1,5 +1,59 @@
 @import "tailwindcss";
 
+/* Force dark mode globally - prevent light mode flash */
+html {
+  color-scheme: dark !important;
+  background-color: #0f0f0f !important;
+}
+
+html, body {
+  background-color: #0f0f0f !important;
+  color: #f4f4f5 !important;
+}
+
+/* Override any light mode attempts */
+html:not(.dark),
+html.light,
+body:not(.dark),
+body.light {
+  background-color: #0f0f0f !important;
+  color: #f4f4f5 !important;
+}
+
+/* Ensure all elements inherit dark theme */
+* {
+  color-scheme: dark !important;
+}
+
+* {
+  border-color: theme('colors.zinc.800');
+}
+
+/* Default dark scrollbar for all browsers */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: theme('colors.zinc.600') theme('colors.zinc.900');
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: theme('colors.zinc.900');
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: theme('colors.zinc.600');
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.zinc.500');
+}
+
 :root {
   --white: rgba(255, 255, 255, 0.1);
   --black: rgba(0, 0, 0, 0.1);

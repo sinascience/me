@@ -24,6 +24,9 @@ export async function getProjects(options?: { published?: boolean; featured?: bo
       },
       features: {
         orderBy: { order: 'asc' }
+      },
+      images: {
+        orderBy: { order: 'asc' }
       }
     },
     orderBy: { order: 'asc' }
@@ -41,6 +44,9 @@ export async function getProject(id: string) {
         orderBy: { order: 'asc' }
       },
       features: {
+        orderBy: { order: 'asc' }
+      },
+      images: {
         orderBy: { order: 'asc' }
       }
     }

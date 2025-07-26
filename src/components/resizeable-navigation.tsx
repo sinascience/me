@@ -11,9 +11,11 @@ import {
 import { Home as HomeIcon, User, Briefcase, Award, Mail, Github, Linkedin } from 'lucide-react';
 import { useState } from "react";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
+import { useLightbox } from "@/contexts/lightbox-context";
 
 export function ResizableNavigation() {
   const { handleSmoothClick } = useSmoothScroll();
+  const { isOpen } = useLightbox();
   
   const navItems = [
     { name: "Home", link: "#", icon: <HomeIcon className="h-4 w-4" /> },
@@ -24,6 +26,10 @@ export function ResizableNavigation() {
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  if (isOpen) {
+    return null;
+  }
 
   return (
     <Navbar>
