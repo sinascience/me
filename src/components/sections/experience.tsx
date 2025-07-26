@@ -90,7 +90,12 @@ export function ExperienceSection() {
                 {/* Header */}
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className={`text-xs font-medium px-3 py-1 rounded-full bg-gradient-to-r ${exp.color} text-white`}>
+                    <span 
+                      className="text-xs font-medium px-3 py-1 rounded-full text-white"
+                      style={{ 
+                        background: `linear-gradient(135deg, ${exp.color}, ${exp.color}dd)`
+                      }}
+                    >
                       {exp.type}
                     </span>
                     <div className="flex items-center text-zinc-400 text-sm">

@@ -14,6 +14,9 @@ import {
   CheckCircle,
   AlertCircle,
   Loader2,
+  Phone,
+  Twitter,
+  Instagram,
 } from "lucide-react";
 import { ContactMethod } from "@/types/cms";
 
@@ -32,12 +35,15 @@ interface FormStatus {
 // Icon mapping for contact methods
 const iconMap: { [key: string]: any } = {
   Mail,
+  Phone,
+  MapPin,
+  Globe,
   Github,
   Linkedin,
+  Twitter,
+  Instagram,
   MessageCircle,
-  MapPin,
   Calendar,
-  Globe,
   Coffee,
 };
 
@@ -193,9 +199,16 @@ export function ContactSection() {
                     className="flex items-center p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-blue-500/50 transition-all duration-300 group"
                   >
                     <div
-                      className={`p-3 rounded-lg bg-zinc-800 ${method.color} mr-4 group-hover:scale-110 transition-transform duration-300`}
+                      className="p-3 rounded-lg mr-4 group-hover:scale-110 transition-transform duration-300"
+                      style={{ 
+                        backgroundColor: `${method.color}20`,
+                        border: `1px solid ${method.color}40`
+                      }}
                     >
-                      <IconComponent className="h-6 w-6" />
+                      <IconComponent 
+                        className="h-6 w-6" 
+                        style={{ color: method.color }}
+                      />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-zinc-200 mb-1">

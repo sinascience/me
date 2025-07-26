@@ -13,7 +13,8 @@ import {
   Plus,
   Edit,
   Eye,
-  BarChart3
+  BarChart3,
+  User
 } from "lucide-react";
 import Link from "next/link";
 
@@ -78,6 +79,14 @@ export default function AdminDashboard() {
 
   const menuItems = [
     { 
+      label: "Personal Info", 
+      icon: User, 
+      href: "/admin/personal", 
+      count: null,
+      description: "Manage personal information",
+      primary: true
+    },
+    { 
       label: "Projects", 
       icon: Briefcase, 
       href: "/admin/projects", 
@@ -94,7 +103,7 @@ export default function AdminDashboard() {
     { 
       label: "Experience", 
       icon: BarChart3, 
-      href: "/admin/experience", 
+      href: "/admin/experiences", 
       count: stats.experiences,
       description: "Edit work experience"
     },
@@ -108,7 +117,7 @@ export default function AdminDashboard() {
     { 
       label: "Contact Methods", 
       icon: MessageCircle, 
-      href: "/admin/contact", 
+      href: "/admin/contact-methods", 
       count: stats.contactMethods,
       description: "Manage contact information"
     },
@@ -173,7 +182,7 @@ export default function AdminDashboard() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-12"
         >
-          {menuItems.slice(0, 5).map((item, index) => (
+          {menuItems.slice(1, 6).map((item, index) => (
             <div
               key={item.label}
               className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center"
@@ -202,12 +211,23 @@ export default function AdminDashboard() {
               className="group"
             >
               <Link href={item.href}>
-                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/10 h-full">
+                <div className={`${
+                  item.primary 
+                    ? 'bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border-blue-500/50' 
+                    : 'bg-zinc-900 border-zinc-800'
+                } border rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/10 h-full`}>
                   <div className="flex items-center justify-between mb-4">
-                    <item.icon className="h-8 w-8 text-blue-400 group-hover:scale-110 transition-transform duration-300" />
+                    <item.icon className={`h-8 w-8 ${
+                      item.primary ? 'text-blue-300' : 'text-blue-400'
+                    } group-hover:scale-110 transition-transform duration-300`} />
                     {item.count !== null && (
                       <span className="bg-blue-500 text-white text-sm px-2 py-1 rounded-full">
                         {item.count}
+                      </span>
+                    )}
+                    {item.primary && (
+                      <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                        Profile
                       </span>
                     )}
                   </div>

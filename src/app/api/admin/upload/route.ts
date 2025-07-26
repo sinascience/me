@@ -3,9 +3,14 @@ import { isAuthenticated } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
+  console.log('Upload request received');
+  
   if (!isAuthenticated(request)) {
+    console.log('Authentication failed');
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+  
+  console.log('Authentication successful');
 
   try {
     const data = await request.formData();
@@ -38,7 +43,21 @@ export async function POST(request: NextRequest) {
     const timestamp = Date.now();
     const fileExtension = file.name.split('.').pop() || 'jpg';
     const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_').replace(/\.[^/.]+$/, "");
-    const filename = `blog-images/${timestamp}-${cleanName}.${fileExtension}`;
+    
+    // Determine the folder based on file usage context
+    const userAgent = request.headers.get('user-agent') || '';
+    const referer = request.headers.get('referer') || '';
+    
+    let folder = 'uploads';
+    if (referer.includes('/admin/personal')) {
+      folder = 'profiles';
+    } else if (referer.includes('/admin/blog')) {
+      folder = 'blog-images';
+    } else if (referer.includes('/admin/projects')) {
+      folder = 'project-images';
+    }
+    
+    const filename = `${folder}/${timestamp}-${cleanName}.${fileExtension}`;
 
     // Upload to Supabase Storage using admin client (bypasses RLS)
     const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
@@ -64,6 +83,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ 
       success: true, 
       imageUrl: publicUrl,
+      url: publicUrl, // Also include 'url' for compatibility
       filename: uploadData.path,
       originalName: file.name,
       size: file.size,

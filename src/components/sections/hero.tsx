@@ -10,22 +10,114 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+
+interface PersonalInfo {
+  name: string;
+  greeting: string;
+  profession: string;
+  short_description: string;
+  bio: string;
+  location: string;
+  timezone: string;
+  profile_photo: string;
+  resume_url: string;
+  years_experience: number;
+}
 
 export function HeroSection() {
-  const words = [
-    {
-      text: "Versatile",
-      className: "text-indigo-400 dark:text-indigo-400",
-    },
-    {
-      text: "Full-Stack",
-      className: "text-zinc-100 dark:text-zinc-100",
-    },
-    {
-      text: "Developer",
-      className: "text-blue-400 dark:text-blue-400",
-    },
-  ];
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchPersonalInfo() {
+      try {
+        const response = await fetch('/api/cms/personal');
+        if (response.ok) {
+          const data = await response.json();
+          setPersonalInfo(data);
+        }
+      } catch (error) {
+        console.error('Error fetching personal information:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPersonalInfo();
+  }, []);
+
+  // Helper function to parse **text** markdown and apply blue color
+  const parseStyledText = (text: string) => {
+    if (!text) return text;
+    
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const content = part.slice(2, -2);
+        return (
+          <span key={index} className="text-blue-400 font-semibold">
+            {content}
+          </span>
+        );
+      }
+      return part;
+    });
+  };
+
+  // Parse profession for typewriter effect with **text** support
+  const parseProfessionWords = (profession: string) => {
+    if (!profession) {
+      return [];
+    }
+
+    // Split by spaces and handle **text** syntax
+    const words = profession.split(' ');
+    return words.map((word, index) => {
+      if (word.startsWith('**') && word.endsWith('**')) {
+        // Remove ** and apply blue color
+        return {
+          text: word.slice(2, -2),
+          className: "text-blue-400 dark:text-blue-400"
+        };
+      } else {
+        // Apply alternating colors for non-starred words
+        const colorIndex = index % 3;
+        return {
+          text: word,
+          className: colorIndex === 0 
+            ? "text-indigo-400 dark:text-indigo-400"
+            : colorIndex === 1
+              ? "text-zinc-100 dark:text-zinc-100"
+              : "text-blue-400 dark:text-blue-400"
+        };
+      }
+    });
+  };
+
+  // Show loading state
+  if (loading || !personalInfo) {
+    return (
+      <section
+        id="hero"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"
+              />
+              <p className="text-zinc-400 text-lg">Loading portfolio...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -56,16 +148,16 @@ export function HeroSection() {
 
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-zinc-100 to-zinc-300 bg-clip-text text-transparent">
-                  Hi, I&apos;m
+                  {personalInfo.greeting}
                 </span>
                 <br />
                 <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                  Anis Fajar
+                  {personalInfo.name}
                 </span>
               </h1>
 
               <div className="mb-8">
-                <TypewriterEffect words={words} className="text-left" />
+                <TypewriterEffect words={parseProfessionWords(personalInfo.profession)} className="text-left" />
               </div>
             </motion.div>
 
@@ -75,25 +167,17 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.8 }}
             >
               <p className="text-lg lg:text-xl text-zinc-300 mb-8 leading-relaxed">
-                Senior Full-Stack Developer with{" "}
-                <span className="text-blue-400 font-semibold">3+ years</span> of
-                hands-on experience building enterprise-level applications.
-                Currently leading technical architecture for healthcare systems
-                serving{" "}
-                <span className="text-indigo-400 font-semibold">
-                  400K+ monthly users
-                </span>
-                .
+                {parseStyledText(personalInfo.short_description)}
               </p>
 
               <div className="flex flex-wrap items-center gap-6 mb-8">
                 <div className="flex items-center text-zinc-400">
                   <MapPin className="h-4 w-4 mr-2 text-blue-400" />
-                  Indonesia
+                  {personalInfo.location}
                 </div>
                 <div className="flex items-center text-zinc-400">
                   <Calendar className="h-4 w-4 mr-2 text-indigo-400" />
-                  3+ Years Experience
+                  {personalInfo.years_experience}+ Years Experience
                 </div>
               </div>
 
@@ -106,7 +190,7 @@ export function HeroSection() {
                 >
                   View My Work
                 </motion.button>
-                <Link href="/resume">
+                <Link href={personalInfo.resume_url || "/resume"}>
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
@@ -161,8 +245,8 @@ export function HeroSection() {
               {/* Main photo */}
               <div className="w-full h-full rounded-3xl bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 backdrop-blur-sm border border-zinc-700/50 flex items-center justify-center overflow-hidden relative group">
                 <Image
-                  src="/profile.png"
-                  alt="Anis Fajar - Full Stack Developer"
+                  src={personalInfo.profile_photo || "/profile.png"}
+                  alt={`${personalInfo.name} - ${personalInfo.profession}`}
                   width={400}
                   height={400}
                   className="w-full h-full object-cover object-top rounded-3xl"
