@@ -150,7 +150,7 @@ export function SkillsSection() {
       </motion.div>
 
       <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {[...skills, ...skills].slice(0, 14).map((skill, i) => {
+        {[...skills].map((skill, i) => {
           const IconComponent = iconMap[skill.icon] || Code2;
           const gridClassName = getGridClassName(i, 14);
           // const gridClassName = getGridClassName(i, skills.length);
