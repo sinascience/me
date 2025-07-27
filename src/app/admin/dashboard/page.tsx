@@ -47,7 +47,7 @@ export default function AdminDashboard() {
       const [projects, skills, experiences, blogs, contactMethods] = await Promise.all([
         fetch('/api/cms/projects', { headers }).then(r => r.json()),
         fetch('/api/cms/skills', { headers }).then(r => r.json()),
-        fetch('/api/cms/experience', { headers }).then(r => r.json()),
+        fetch('/api/cms/experiences', { headers }).then(r => r.json()),
         fetch('/api/cms/blog', { headers }).then(r => r.json()),
         fetch('/api/cms/contact-methods', { headers }).then(r => r.json())
       ]);
@@ -182,7 +182,7 @@ export default function AdminDashboard() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-12"
         >
-          {menuItems.slice(1, 6).map((item, index) => (
+          {menuItems.slice(1, 6).map((item) => (
             <div
               key={item.label}
               className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center"

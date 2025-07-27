@@ -11,7 +11,7 @@ export function ExperienceSection() {
   useEffect(() => {
     async function fetchExperiences() {
       try {
-        const response = await fetch('/api/cms/experience?active=true');
+        const response = await fetch('/api/cms/experiences?active=true');
         if (response.ok) {
           const data = await response.json();
           setExperiences(data);

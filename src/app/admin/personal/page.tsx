@@ -78,7 +78,7 @@ export default function PersonalInfoAdmin() {
 
   const fetchPersonalInfo = async () => {
     try {
-      const response = await fetch('/api/admin/personal');
+      const response = await fetch('/api/cms/personal?admin=true');
       if (response.ok) {
         const data: PersonalInfo = await response.json();
         
@@ -124,7 +124,7 @@ export default function PersonalInfoAdmin() {
         years_experience: { value: formData.years_experience, type: 'number' }
       };
 
-      const response = await fetch('/api/admin/personal', {
+      const response = await fetch('/api/cms/personal', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(personalData)

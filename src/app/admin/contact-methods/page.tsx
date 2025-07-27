@@ -1,13 +1,13 @@
 "use client";
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
   ArrowLeft,
-  Plus, 
-  Edit, 
-  Trash2, 
-  Save, 
-  X, 
+  Plus,
+  Edit,
+  Trash2,
+  Save,
+  X,
   Mail,
   Phone,
   MapPin,
@@ -17,9 +17,9 @@ import {
   Twitter,
   Instagram,
   MessageCircle,
-  Calendar
-} from 'lucide-react';
-import Link from 'next/link';
+  Calendar,
+} from "lucide-react";
+import Link from "next/link";
 
 interface ContactMethod {
   id?: string;
@@ -34,51 +34,52 @@ interface ContactMethod {
 }
 
 const initialContactMethod: ContactMethod = {
-  icon: 'Mail',
-  label: '',
-  value: '',
-  href: '',
-  color: '#3b82f6',
-  description: '',
+  icon: "Mail",
+  label: "",
+  value: "",
+  href: "",
+  color: "#3b82f6",
+  description: "",
   order: 0,
-  status: 'active'
+  status: "active",
 };
 
 const iconOptions = [
-  { value: 'Mail', label: 'Email', component: Mail },
-  { value: 'Phone', label: 'Phone', component: Phone },
-  { value: 'MapPin', label: 'Location', component: MapPin },
-  { value: 'Globe', label: 'Website', component: Globe },
-  { value: 'Github', label: 'GitHub', component: Github },
-  { value: 'Linkedin', label: 'LinkedIn', component: Linkedin },
-  { value: 'Twitter', label: 'Twitter', component: Twitter },
-  { value: 'Instagram', label: 'Instagram', component: Instagram },
-  { value: 'MessageCircle', label: 'WhatsApp', component: MessageCircle },
-  { value: 'Calendar', label: 'Calendar', component: Calendar }
+  { value: "Mail", label: "Email", component: Mail },
+  { value: "Phone", label: "Phone", component: Phone },
+  { value: "MapPin", label: "Location", component: MapPin },
+  { value: "Globe", label: "Website", component: Globe },
+  { value: "Github", label: "GitHub", component: Github },
+  { value: "Linkedin", label: "LinkedIn", component: Linkedin },
+  { value: "Twitter", label: "Twitter", component: Twitter },
+  { value: "Instagram", label: "Instagram", component: Instagram },
+  { value: "MessageCircle", label: "WhatsApp", component: MessageCircle },
+  { value: "Calendar", label: "Calendar", component: Calendar },
 ];
 
 const statusOptions = [
-  { value: 'active', label: 'Active' },
-  { value: 'inactive', label: 'Inactive' }
+  { value: "active", label: "Active" },
+  { value: "inactive", label: "Inactive" },
 ];
 
 const colorOptions = [
-  { value: '#3b82f6', label: 'Blue', color: 'bg-blue-500' },
-  { value: '#10b981', label: 'Green', color: 'bg-green-500' },
-  { value: '#f59e0b', label: 'Yellow', color: 'bg-yellow-500' },
-  { value: '#ef4444', label: 'Red', color: 'bg-red-500' },
-  { value: '#8b5cf6', label: 'Purple', color: 'bg-purple-500' },
-  { value: '#06b6d4', label: 'Cyan', color: 'bg-cyan-500' },
-  { value: '#f97316', label: 'Orange', color: 'bg-orange-500' },
-  { value: '#84cc16', label: 'Lime', color: 'bg-lime-500' },
-  { value: '#FFFFFF', label: 'Black', color: 'bg-white' }
+  { value: "#3b82f6", label: "Blue", color: "bg-blue-500" },
+  { value: "#10b981", label: "Green", color: "bg-green-500" },
+  { value: "#f59e0b", label: "Yellow", color: "bg-yellow-500" },
+  { value: "#ef4444", label: "Red", color: "bg-red-500" },
+  { value: "#8b5cf6", label: "Purple", color: "bg-purple-500" },
+  { value: "#06b6d4", label: "Cyan", color: "bg-cyan-500" },
+  { value: "#f97316", label: "Orange", color: "bg-orange-500" },
+  { value: "#84cc16", label: "Lime", color: "bg-lime-500" },
+  { value: "#FFFFFF", label: "Black", color: "bg-white" },
 ];
 
 export default function ContactMethodsAdmin() {
   const [contactMethods, setContactMethods] = useState<ContactMethod[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [editingContactMethod, setEditingContactMethod] = useState<ContactMethod | null>(null);
+  const [editingContactMethod, setEditingContactMethod] =
+    useState<ContactMethod | null>(null);
   const [formData, setFormData] = useState<ContactMethod>(initialContactMethod);
   const [saving, setSaving] = useState(false);
 
@@ -88,13 +89,13 @@ export default function ContactMethodsAdmin() {
 
   const fetchContactMethods = async () => {
     try {
-      const response = await fetch('/api/admin/contact-methods');
+      const response = await fetch("/api/cms/contact-methods");
       if (response.ok) {
         const data = await response.json();
         setContactMethods(data);
       }
     } catch (error) {
-      console.error('Error fetching contact methods:', error);
+      console.error("Error fetching contact methods:", error);
     } finally {
       setLoading(false);
     }
@@ -105,16 +106,16 @@ export default function ContactMethodsAdmin() {
     setSaving(true);
 
     try {
-      const url = editingContactMethod 
-        ? `/api/admin/contact-methods/${editingContactMethod.id}`
-        : '/api/admin/contact-methods';
-      
-      const method = editingContactMethod ? 'PUT' : 'POST';
-      
+      const url = editingContactMethod
+        ? `/api/cms/contact-methods/${editingContactMethod.id}`
+        : "/api/cms/contact-methods";
+
+      const method = editingContactMethod ? "PUT" : "POST";
+
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -122,25 +123,26 @@ export default function ContactMethodsAdmin() {
         resetForm();
       }
     } catch (error) {
-      console.error('Error saving contact method:', error);
+      console.error("Error saving contact method:", error);
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this contact method?')) return;
+    if (!confirm("Are you sure you want to delete this contact method?"))
+      return;
 
     try {
-      const response = await fetch(`/api/admin/contact-methods/${id}`, {
-        method: 'DELETE'
+      const response = await fetch(`/api/cms/contact-methods/${id}`, {
+        method: "DELETE",
       });
 
       if (response.ok) {
         await fetchContactMethods();
       }
     } catch (error) {
-      console.error('Error deleting contact method:', error);
+      console.error("Error deleting contact method:", error);
     }
   };
 
@@ -157,7 +159,7 @@ export default function ContactMethodsAdmin() {
   };
 
   const getIconComponent = (iconName: string) => {
-    const iconOption = iconOptions.find(option => option.value === iconName);
+    const iconOption = iconOptions.find((option) => option.value === iconName);
     return iconOption ? iconOption.component : Mail;
   };
 
@@ -183,7 +185,7 @@ export default function ContactMethodsAdmin() {
           <div className="animate-pulse">
             <div className="h-8 bg-zinc-800 rounded mb-4 max-w-md"></div>
             <div className="space-y-4">
-              {[1, 2, 3].map(i => (
+              {[1, 2, 3].map((i) => (
                 <div key={i} className="h-24 bg-zinc-800 rounded"></div>
               ))}
             </div>
@@ -223,7 +225,6 @@ export default function ContactMethodsAdmin() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
         {/* Contact Methods List */}
         <div className="grid gap-6 mb-8">
           {contactMethods.map((contactMethod) => {
@@ -237,31 +238,42 @@ export default function ContactMethodsAdmin() {
               >
                 <div className="flex justify-between items-start">
                   <div className="flex items-start gap-4 flex-1">
-                    <div 
+                    <div
                       className="p-3 rounded-lg flex items-center justify-center"
-                      style={{ backgroundColor: `${contactMethod.color}20`, border: `1px solid ${contactMethod.color}40` }}
+                      style={{
+                        backgroundColor: `${contactMethod.color}20`,
+                        border: `1px solid ${contactMethod.color}40`,
+                      }}
                     >
-                      <IconComponent 
+                      <IconComponent
                         className="h-6 w-6"
                         style={{ color: contactMethod.color }}
                       />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-semibold text-zinc-100">{contactMethod.label}</h3>
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          contactMethod.status === 'active' 
-                            ? 'bg-green-500/20 text-green-400' 
-                            : 'bg-red-500/20 text-red-400'
-                        }`}>
+                        <h3 className="text-xl font-semibold text-zinc-100">
+                          {contactMethod.label}
+                        </h3>
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs ${
+                            contactMethod.status === "active"
+                              ? "bg-green-500/20 text-green-400"
+                              : "bg-red-500/20 text-red-400"
+                          }`}
+                        >
                           {contactMethod.status}
                         </span>
                       </div>
-                      <p className="text-zinc-300 font-medium mb-2">{contactMethod.value}</p>
+                      <p className="text-zinc-300 font-medium mb-2">
+                        {contactMethod.value}
+                      </p>
                       {contactMethod.description && (
-                        <p className="text-zinc-400 text-sm mb-2">{contactMethod.description}</p>
+                        <p className="text-zinc-400 text-sm mb-2">
+                          {contactMethod.description}
+                        </p>
                       )}
-                      <a 
+                      <a
                         href={contactMethod.href}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -312,7 +324,9 @@ export default function ContactMethodsAdmin() {
               >
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl font-bold text-zinc-100">
-                    {editingContactMethod ? 'Edit Contact Method' : 'Add Contact Method'}
+                    {editingContactMethod
+                      ? "Edit Contact Method"
+                      : "Add Contact Method"}
                   </h2>
                   <button
                     onClick={resetForm}
@@ -330,11 +344,13 @@ export default function ContactMethodsAdmin() {
                       </label>
                       <select
                         value={formData.icon}
-                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, icon: e.target.value })
+                        }
                         className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 focus:border-blue-500 focus:outline-none"
                         required
                       >
-                        {iconOptions.map(option => (
+                        {iconOptions.map((option) => (
                           <option key={option.value} value={option.value}>
                             {option.label}
                           </option>
@@ -347,23 +363,23 @@ export default function ContactMethodsAdmin() {
                         Color *
                       </label>
                       <div className="flex gap-2 flex-wrap">
-                        {colorOptions.map(option => {
+                        {colorOptions.map((option) => {
                           const isSelected = formData.color === option.value;
-                          const isBlack = option.special;
-                          
+
                           return (
                             <button
                               key={option.value}
                               type="button"
-                              onClick={() => setFormData({ ...formData, color: option.value })}
+                              onClick={() =>
+                                setFormData({
+                                  ...formData,
+                                  color: option.value,
+                                })
+                              }
                               className={`w-8 h-8 rounded-full border-2 transition-all transform hover:scale-110 ${
-                                isSelected 
-                                  ? isBlack
-                                    ? 'border-white shadow-lg shadow-white/50 ring-2 ring-white/30'
-                                    : 'border-white shadow-lg ring-2 ring-white/30'
-                                  : isBlack
-                                    ? 'border-zinc-400 hover:border-zinc-300'
-                                    : 'border-zinc-600 hover:border-zinc-400'
+                                isSelected
+                                  ? "border-white shadow-lg ring-2 ring-white/30"
+                                  : "border-zinc-600 hover:border-zinc-400"
                               } ${option.color}`}
                               title={option.label}
                             />
@@ -379,7 +395,9 @@ export default function ContactMethodsAdmin() {
                       <input
                         type="text"
                         value={formData.label}
-                        onChange={(e) => setFormData({ ...formData, label: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, label: e.target.value })
+                        }
                         className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 focus:border-blue-500 focus:outline-none"
                         placeholder="e.g., Email, Phone, GitHub"
                         required
@@ -393,7 +411,9 @@ export default function ContactMethodsAdmin() {
                       <input
                         type="text"
                         value={formData.value}
-                        onChange={(e) => setFormData({ ...formData, value: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, value: e.target.value })
+                        }
                         className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 focus:border-blue-500 focus:outline-none"
                         placeholder="e.g., john@example.com, +1234567890"
                         required
@@ -407,7 +427,9 @@ export default function ContactMethodsAdmin() {
                       <input
                         type="url"
                         value={formData.href}
-                        onChange={(e) => setFormData({ ...formData, href: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, href: e.target.value })
+                        }
                         className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 focus:border-blue-500 focus:outline-none"
                         placeholder="e.g., mailto:john@example.com, tel:+1234567890"
                         required
@@ -420,11 +442,13 @@ export default function ContactMethodsAdmin() {
                       </label>
                       <select
                         value={formData.status}
-                        onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, status: e.target.value })
+                        }
                         className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 focus:border-blue-500 focus:outline-none"
                         required
                       >
-                        {statusOptions.map(status => (
+                        {statusOptions.map((status) => (
                           <option key={status.value} value={status.value}>
                             {status.label}
                           </option>
@@ -439,7 +463,12 @@ export default function ContactMethodsAdmin() {
                       <input
                         type="number"
                         value={formData.order}
-                        onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            order: parseInt(e.target.value),
+                          })
+                        }
                         className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 focus:border-blue-500 focus:outline-none"
                       />
                     </div>
@@ -451,7 +480,12 @@ export default function ContactMethodsAdmin() {
                     </label>
                     <textarea
                       value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        })
+                      }
                       rows={3}
                       className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 focus:border-blue-500 focus:outline-none"
                       placeholder="Optional description for this contact method"
@@ -474,7 +508,7 @@ export default function ContactMethodsAdmin() {
                       className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:opacity-50"
                     >
                       <Save className="h-4 w-4" />
-                      {saving ? 'Saving...' : 'Save Contact Method'}
+                      {saving ? "Saving..." : "Save Contact Method"}
                     </motion.button>
                   </div>
                 </form>

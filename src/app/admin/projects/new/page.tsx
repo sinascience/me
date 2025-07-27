@@ -149,7 +149,7 @@ export default function NewProjectPage() {
 
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch('/api/admin/projects', {
+      const response = await fetch('/api/cms/projects', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

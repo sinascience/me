@@ -1,8 +1,26 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { getExperiences } from '@/lib/cms';
 import { prisma } from '@/lib/prisma';
+import { isAuthenticated } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const active = searchParams.get('active');
+
+    // If active filter is requested, use the CMS helper (public use)
+    if (active !== null) {
+      const experiences = await getExperiences({ 
+        active: active === 'true' || undefined 
+      });
+      return NextResponse.json(experiences);
+    }
+
+    // Otherwise return all experiences for admin use (requires auth)
+    if (!isAuthenticated(request)) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const experiences = await prisma.experience.findMany({
       include: {
         achievements: {
@@ -22,7 +40,11 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  if (!isAuthenticated(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { achievements, skills, startDate, endDate, current, ...experienceData } = body;

@@ -9,7 +9,6 @@ import {
   Trash2,
   Code,
   Star,
-  TrendingUp,
   AlertCircle,
   Loader2,
 } from "lucide-react";
@@ -50,7 +49,7 @@ export default function AdminSkillsPage() {
   const fetchSkills = async () => {
     try {
       const auth = localStorage.getItem("admin_auth");
-      const response = await fetch("/api/admin/skills", {
+      const response = await fetch("/api/cms/skills", {
         headers: { Authorization: `Bearer ${auth}` },
       });
 
@@ -61,6 +60,8 @@ export default function AdminSkillsPage() {
         setMessage({ type: "error", text: "Failed to fetch skills" });
       }
     } catch (error) {
+      console.log(error);
+      
       setMessage({
         type: "error",
         text: "An error occurred while fetching skills",
@@ -118,9 +119,9 @@ export default function AdminSkillsPage() {
     try {
       const auth = localStorage.getItem("admin_auth");
       const url = editingSkill
-        ? `/api/admin/skills/${editingSkill.id}`
-        : "/api/admin/skills";
-      const method = editingSkill ? "PATCH" : "POST";
+        ? `/api/cms/skills/${editingSkill.id}`
+        : "/api/cms/skills";
+      const method = editingSkill ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
@@ -146,6 +147,8 @@ export default function AdminSkillsPage() {
         });
       }
     } catch (error) {
+      console.log(error);
+      
       setMessage({
         type: "error",
         text: "An error occurred while saving the skill",
@@ -160,7 +163,7 @@ export default function AdminSkillsPage() {
 
     try {
       const auth = localStorage.getItem("admin_auth");
-      const response = await fetch(`/api/admin/skills/${id}`, {
+      const response = await fetch(`/api/cms/skills/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${auth}` },
       });
@@ -172,6 +175,8 @@ export default function AdminSkillsPage() {
         setMessage({ type: "error", text: "Failed to delete skill" });
       }
     } catch (error) {
+      console.log(error);
+      
       setMessage({ type: "error", text: "An error occurred" });
     }
   };

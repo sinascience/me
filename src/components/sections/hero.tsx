@@ -1,13 +1,7 @@
 "use client";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { motion } from "framer-motion";
-import {
-  FileText,
-  MapPin,
-  Calendar,
-  Code2,
-  Database,
-} from "lucide-react";
+import { FileText, MapPin, Calendar, Code2, Database } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -32,13 +26,13 @@ export function HeroSection() {
   useEffect(() => {
     async function fetchPersonalInfo() {
       try {
-        const response = await fetch('/api/cms/personal');
+        const response = await fetch("/api/cms/personal");
         if (response.ok) {
           const data = await response.json();
           setPersonalInfo(data);
         }
       } catch (error) {
-        console.error('Error fetching personal information:', error);
+        console.error("Error fetching personal information:", error);
       } finally {
         setLoading(false);
       }
@@ -50,11 +44,11 @@ export function HeroSection() {
   // Helper function to parse **text** markdown and apply blue color
   const parseStyledText = (text: string) => {
     if (!text) return text;
-    
+
     const parts = text.split(/(\*\*[^*]+\*\*)/g);
-    
+
     return parts.map((part, index) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
+      if (part.startsWith("**") && part.endsWith("**")) {
         const content = part.slice(2, -2);
         return (
           <span key={index} className="text-blue-400 font-semibold">
@@ -73,24 +67,25 @@ export function HeroSection() {
     }
 
     // Split by spaces and handle **text** syntax
-    const words = profession.split(' ');
+    const words = profession.split(" ");
     return words.map((word, index) => {
-      if (word.startsWith('**') && word.endsWith('**')) {
+      if (word.startsWith("**") && word.endsWith("**")) {
         // Remove ** and apply blue color
         return {
           text: word.slice(2, -2),
-          className: "text-blue-400 dark:text-blue-400"
+          className: "text-blue-400 dark:text-blue-400",
         };
       } else {
         // Apply alternating colors for non-starred words
         const colorIndex = index % 3;
         return {
           text: word,
-          className: colorIndex === 0 
-            ? "text-indigo-400 dark:text-indigo-400"
-            : colorIndex === 1
+          className:
+            colorIndex === 0
+              ? "text-indigo-400 dark:text-indigo-400"
+              : colorIndex === 1
               ? "text-zinc-100 dark:text-zinc-100"
-              : "text-blue-400 dark:text-blue-400"
+              : "text-blue-400 dark:text-blue-400",
         };
       }
     });
@@ -157,7 +152,10 @@ export function HeroSection() {
               </h1>
 
               <div className="mb-8">
-                <TypewriterEffect words={parseProfessionWords(personalInfo.profession)} className="text-left" />
+                <TypewriterEffect
+                  words={parseProfessionWords(personalInfo.profession)}
+                  className="text-left"
+                />
               </div>
             </motion.div>
 
@@ -182,14 +180,16 @@ export function HeroSection() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-medium shadow-lg hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
-                >
-                  View My Work
-                </motion.button>
+                <Link href={"/projects"}>
+                  <motion.button
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-medium shadow-lg hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+                  >
+                    View My Work
+                  </motion.button>
+                </Link>
                 <Link href={personalInfo.resume_url || "/resume"}>
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}

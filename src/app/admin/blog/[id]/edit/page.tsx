@@ -53,12 +53,13 @@ export default function EditBlogPage() {
     }
     setIsAuthenticated(true);
     fetchBlog();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, params.id]);
 
   const fetchBlog = async () => {
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/blogs/${params.id}`, {
+      const response = await fetch(`/api/cms/blog/${params.id}`, {
         headers: { 'Authorization': `Bearer ${auth}` }
       });
 
@@ -72,8 +73,10 @@ export default function EditBlogPage() {
           readTime: blog.readTime,
           status: blog.status,
           featured: blog.featured,
-          metaTitle: blog.metaTitle || '',
-          metaDescription: blog.metaDescription || '',
+          // metaTitle: blog.metaTitle || '',
+          // metaDescription: blog.metaDescription || '',
+          metaTitle: '',
+          metaDescription: '',
           image: blog.image || ''
         });
         
@@ -86,6 +89,8 @@ export default function EditBlogPage() {
         setMessage({ type: 'error', text: 'Failed to load blog post' });
       }
     } catch (error) {
+      console.log(error);
+      
       setMessage({ type: 'error', text: 'An error occurred while loading the blog post' });
     } finally {
       setLoading(false);
@@ -118,8 +123,8 @@ export default function EditBlogPage() {
 
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/blogs/${params.id}`, {
-        method: 'PATCH',
+      const response = await fetch(`/api/cms/blog/${params.id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${auth}`
@@ -127,7 +132,7 @@ export default function EditBlogPage() {
         body: JSON.stringify({
           ...formData,
           tags: tags,
-          publishedAt: formData.status === 'published' && formData.status !== 'draft' 
+          publishedAt: formData.status === 'published' 
             ? new Date().toISOString() 
             : null
         })
@@ -143,6 +148,8 @@ export default function EditBlogPage() {
         setMessage({ type: 'error', text: errorData.error || 'Failed to update blog post' });
       }
     } catch (error) {
+      console.log(error);
+      
       setMessage({ type: 'error', text: 'An error occurred while updating the blog post' });
     } finally {
       setSaving(false);
@@ -275,7 +282,7 @@ export default function EditBlogPage() {
                     onChange={(value) => setFormData(prev => ({ ...prev, content: value || '' }))}
                     preview="edit"
                     hideToolbar={false}
-                    visibleDragBar={false}
+                    visibleDragbar={false}
                     data-color-mode="dark"
                     height={400}
                   />

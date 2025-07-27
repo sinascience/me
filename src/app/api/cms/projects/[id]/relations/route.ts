@@ -4,14 +4,14 @@ import { isAuthenticated } from '@/lib/auth';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   if (!isAuthenticated(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
-    const projectId = params.id;
+    const projectId = (await params).id;
 
     // Delete all related data for the project
     await prisma.$transaction([

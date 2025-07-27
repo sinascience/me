@@ -7,10 +7,6 @@ import {
   Save, 
   Plus, 
   Trash2, 
-  FileText,
-  Eye,
-  Calendar,
-  User,
   Hash,
   AlertCircle,
   Loader2
@@ -81,7 +77,7 @@ export default function NewBlogPage() {
 
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch('/api/admin/blogs', {
+      const response = await fetch('/api/cms/blog', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,6 +100,8 @@ export default function NewBlogPage() {
         setMessage({ type: 'error', text: errorData.error || 'Failed to create blog post' });
       }
     } catch (error) {
+      console.log(error);
+      
       setMessage({ type: 'error', text: 'An error occurred while creating the blog post' });
     } finally {
       setLoading(false);

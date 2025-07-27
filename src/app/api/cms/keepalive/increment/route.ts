@@ -1,0 +1,46 @@
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export async function POST() {
+  try {
+    // Find the dont_remove_this setting
+    const setting = await prisma.settings.findUnique({
+      where: { key: "dont_remove_this" }
+    });
+
+    if (!setting) {
+      return NextResponse.json(
+        { error: "Keep-alive setting not found" },
+        { status: 404 }
+      );
+    }
+
+    const currentValue = parseInt(setting.value) || 0;
+    const newValue = currentValue + 1;
+
+    // Update the setting value
+    await prisma.settings.update({
+      where: { key: "dont_remove_this" },
+      data: { value: newValue.toString() }
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Keep-alive counter incremented",
+      previousValue: currentValue,
+      newValue: newValue,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error) {
+    console.error("Keep-alive increment error:", error);
+    return NextResponse.json(
+      { error: "Failed to increment keep-alive counter" },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}

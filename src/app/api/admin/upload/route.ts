@@ -45,7 +45,6 @@ export async function POST(request: NextRequest) {
     const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_').replace(/\.[^/.]+$/, "");
     
     // Determine the folder based on file usage context
-    const userAgent = request.headers.get('user-agent') || '';
     const referer = request.headers.get('referer') || '';
     
     let folder = 'uploads';

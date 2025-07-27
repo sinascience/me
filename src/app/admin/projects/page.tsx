@@ -54,8 +54,8 @@ export default function AdminProjectsPage() {
   const toggleFeatured = async (projectId: string, featured: boolean) => {
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/projects/${projectId}`, {
-        method: 'PATCH',
+      const response = await fetch(`/api/cms/projects/${projectId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${auth}`
@@ -75,8 +75,8 @@ export default function AdminProjectsPage() {
     const newStatus = status === 'published' ? 'draft' : 'published';
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/projects/${projectId}`, {
-        method: 'PATCH',
+      const response = await fetch(`/api/cms/projects/${projectId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${auth}`
@@ -97,7 +97,7 @@ export default function AdminProjectsPage() {
 
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/projects/${projectId}`, {
+      const response = await fetch(`/api/cms/projects/${projectId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${auth}` }
       });

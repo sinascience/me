@@ -551,6 +551,16 @@ async function main() {
     ],
   });
 
+  // 6. Add Database Keep-Alive Setting
+  console.log("🔧 Adding database keep-alive setting...");
+  await prisma.settings.create({
+    data: {
+      key: "dont_remove_this",
+      value: "0",
+      type: "number",
+    },
+  });
+
   console.log("✅ Data migration completed successfully!");
 }
 

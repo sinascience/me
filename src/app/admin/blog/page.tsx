@@ -36,7 +36,7 @@ export default function AdminBlogPage() {
   const fetchBlogs = async () => {
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch('/api/admin/blogs', {
+      const response = await fetch('/api/cms/blog', {
         headers: { 'Authorization': `Bearer ${auth}` }
       });
       
@@ -54,7 +54,7 @@ export default function AdminBlogPage() {
   const toggleFeatured = async (blogId: string, featured: boolean) => {
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/blogs/${blogId}`, {
+      const response = await fetch(`/api/cms/blog/${blogId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export default function AdminBlogPage() {
     
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/blogs/${blogId}`, {
+      const response = await fetch(`/api/cms/blog/${blogId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export default function AdminBlogPage() {
 
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/blogs/${blogId}`, {
+      const response = await fetch(`/api/cms/blog/${blogId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${auth}` }
       });

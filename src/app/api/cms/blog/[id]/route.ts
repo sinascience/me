@@ -4,15 +4,17 @@ import { isAuthenticated } from '@/lib/auth';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   if (!isAuthenticated(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  const id = (await params).id
+
   try {
     const blog = await prisma.blog.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         tags: {
           include: {
@@ -33,9 +35,9 @@ export async function GET(
   }
 }
 
-export async function PATCH(
+export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   if (!isAuthenticated(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -44,19 +46,20 @@ export async function PATCH(
   try {
     const data = await request.json();
     const { tags, ...blogData } = data;
+    const id = (await params).id
 
     // If tags are provided, update them
     if (tags) {
       // Delete existing tag relationships
       await prisma.blogTag.deleteMany({
-        where: { blogId: params.id }
+        where: { blogId: id }
       });
 
       // Create new tag relationships
       if (tags.length > 0) {
         await prisma.blogTag.createMany({
           data: tags.map((tagName: string) => ({
-            blogId: params.id,
+            blogId: id,
             tagId: tagName // This assumes tagName is actually the tag ID
           }))
         });
@@ -64,7 +67,7 @@ export async function PATCH(
     }
 
     const blog = await prisma.blog.update({
-      where: { id: params.id },
+      where: { id: id },
       data: blogData,
       include: {
         tags: {
@@ -84,21 +87,23 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   if (!isAuthenticated(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  const id = (await params).id
+
   try {
     // Delete related data first
     await prisma.blogTag.deleteMany({
-      where: { blogId: params.id }
+      where: { blogId: id }
     });
 
     // Delete the blog
     await prisma.blog.delete({
-      where: { id: params.id }
+      where: { id: id }
     });
 
     return NextResponse.json({ success: true });

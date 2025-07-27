@@ -75,7 +75,7 @@ export default function EditProjectPage() {
   const fetchProject = async () => {
     try {
       const auth = localStorage.getItem('admin_auth');
-      const response = await fetch(`/api/admin/projects/${params.id}`, {
+      const response = await fetch(`/api/cms/projects/${params.id}`, {
         headers: { 'Authorization': `Bearer ${auth}` }
       });
 
@@ -183,13 +183,13 @@ export default function EditProjectPage() {
       const auth = localStorage.getItem('admin_auth');
       
       // Delete existing relations and recreate them
-      await fetch(`/api/admin/projects/${params.id}/relations`, {
+      await fetch(`/api/cms/projects/${params.id}/relations`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${auth}` }
       });
 
-      const response = await fetch(`/api/admin/projects/${params.id}`, {
-        method: 'PATCH',
+      const response = await fetch(`/api/cms/projects/${params.id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${auth}`

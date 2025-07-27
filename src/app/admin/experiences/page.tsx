@@ -202,7 +202,7 @@ export default function ExperiencesAdmin() {
 
   const fetchExperiences = async () => {
     try {
-      const response = await fetch('/api/admin/experiences');
+      const response = await fetch('/api/cms/experiences');
       if (response.ok) {
         const data = await response.json();
         setExperiences(data);
@@ -220,8 +220,8 @@ export default function ExperiencesAdmin() {
 
     try {
       const url = editingExperience 
-        ? `/api/admin/experiences/${editingExperience.id}`
-        : '/api/admin/experiences';
+        ? `/api/cms/experiences/${editingExperience.id}`
+        : '/api/cms/experiences';
       
       const method = editingExperience ? 'PUT' : 'POST';
       
@@ -249,7 +249,7 @@ export default function ExperiencesAdmin() {
     if (!confirm('Are you sure you want to delete this experience?')) return;
 
     try {
-      const response = await fetch(`/api/admin/experiences/${id}`, {
+      const response = await fetch(`/api/cms/experiences/${id}`, {
         method: 'DELETE'
       });
 
