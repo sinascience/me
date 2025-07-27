@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Calendar, Clock, User, Tag, ArrowRight, Search } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Search } from "lucide-react";
 import { Blog } from "@/types/cms";
 
 export default function BlogPage() {

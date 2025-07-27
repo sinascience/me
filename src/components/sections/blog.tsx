@@ -68,7 +68,7 @@ export function BlogSection() {
             <BookOpen className="h-16 w-16 text-blue-400 mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-zinc-200 mb-4">Blog Coming Soon</h2>
             <p className="text-zinc-400 mb-6 max-w-2xl mx-auto">
-              I'm working on sharing insights about web development, architecture patterns, and the latest in tech. 
+              I&apos;m working on sharing insights about web development, architecture patterns, and the latest in tech. 
               Stay tuned for articles on React, Next.js, database optimization, and more!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

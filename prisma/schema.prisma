@@ -16,6 +16,10 @@ model Project {
   title       String
   subtitle    String?
   description String
+  category    String?
+  role        String?
+  startDate   String?
+  endDate     String?
   image       String?
   website     String?
   repository  String?

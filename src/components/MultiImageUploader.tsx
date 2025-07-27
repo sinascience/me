@@ -2,7 +2,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Upload, 
   X, 
   Image as ImageIcon, 
   Loader2,
@@ -10,6 +9,7 @@ import {
   Plus,
   GripVertical
 } from "lucide-react";
+import Image from "next/image";
 
 interface MultiImageUploaderProps {
   value?: string[];
@@ -156,12 +156,12 @@ function MultiImageUploader({
     onChange(newImages);
   };
 
-  const handleReorder = (fromIndex: number, toIndex: number) => {
-    const newImages = [...value];
-    const [movedImage] = newImages.splice(fromIndex, 1);
-    newImages.splice(toIndex, 0, movedImage);
-    onChange(newImages);
-  };
+  // const handleReorder = (fromIndex: number, toIndex: number) => {
+  //   const newImages = [...value];
+  //   const [movedImage] = newImages.splice(fromIndex, 1);
+  //   newImages.splice(toIndex, 0, movedImage);
+  //   onChange(newImages);
+  // };
 
   const openFileDialog = () => {
     fileInputRef.current?.click();
@@ -226,9 +226,11 @@ function MultiImageUploader({
                 className="relative group"
               >
                 <div className="relative w-full h-32 bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={`Project image ${index + 1}`}
+                    width={200}
+                    height={128}
                     className="w-full h-full object-cover"
                   />
                   

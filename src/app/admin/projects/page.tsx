@@ -198,10 +198,30 @@ export default function AdminProjectsPage() {
                       
                       <p className="text-zinc-400 mb-4 line-clamp-2">{project.description}</p>
                       
+                      {(project.category || project.role) && (
+                        <div className="flex items-center gap-2 mb-2">
+                          {project.category && (
+                            <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs">
+                              {project.category}
+                            </span>
+                          )}
+                          {project.role && (
+                            <span className="px-2 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs">
+                              {project.role}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      
                       <div className="flex items-center gap-4 text-sm text-zinc-500">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
-                          {new Date(project.createdAt).toLocaleDateString()}
+                          {project.startDate && project.endDate 
+                            ? `${project.startDate} - ${project.endDate}`
+                            : project.startDate 
+                              ? `${project.startDate} - Present`
+                              : new Date(project.createdAt).toLocaleDateString()
+                          }
                         </div>
                         {project.website && (
                           <a

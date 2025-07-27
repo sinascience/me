@@ -8,6 +8,11 @@ export interface Project {
   image?: string;
   website?: string;
   repository?: string;
+  category?: string;
+  startDate?: string;
+  endDate?: string;
+  caseStudyUrl?: string;
+  role?: string;
   status: string;
   featured: boolean;
   order: number;

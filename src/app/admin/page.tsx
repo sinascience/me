@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
       } else {
         setError('Invalid password');
       }
-    } catch (error) {
+    } catch {
       setError('Authentication failed');
     } finally {
       setLoading(false);

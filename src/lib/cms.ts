@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { prisma } from './prisma';
 import { supabase } from './supabase';
 
@@ -220,7 +221,7 @@ export async function setSetting(key: string, value: any, type: string = 'string
 
 // File upload helper using Supabase Storage
 export async function uploadFile(file: File, bucket: string, path: string) {
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from(bucket)
     .upload(path, file);
 

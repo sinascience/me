@@ -19,6 +19,7 @@ import {
   Instagram,
 } from "lucide-react";
 import { ContactMethod } from "@/types/cms";
+import { LucideIconType } from "@/lib/types";
 
 interface FormData {
   name: string;
@@ -33,7 +34,7 @@ interface FormStatus {
 }
 
 // Icon mapping for contact methods
-const iconMap: { [key: string]: any } = {
+const iconMap: { [key: string]: LucideIconType } = {
   Mail,
   Phone,
   MapPin,

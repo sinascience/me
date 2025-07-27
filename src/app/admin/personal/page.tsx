@@ -9,14 +9,12 @@ import {
   Upload,
   MapPin,
   Clock,
-  Briefcase,
   FileText,
-  Calendar,
-  MessageCircle,
   Image as ImageIcon,
   X
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface PersonalInfo {
   name: { value: string; type: string };
@@ -249,9 +247,11 @@ export default function PersonalInfoAdmin() {
                 <div className="flex items-center gap-6">
                   {formData.profile_photo ? (
                     <div className="relative">
-                      <img
+                      <Image
                         src={formData.profile_photo}
                         alt="Profile"
+                        width={96}
+                        height={96}
                         className="w-24 h-24 rounded-full object-cover border-2 border-zinc-700"
                       />
                       <button

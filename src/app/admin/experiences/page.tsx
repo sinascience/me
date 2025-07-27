@@ -574,7 +574,7 @@ export default function ExperiencesAdmin() {
                         wrapperClassName="w-full"
                         popperClassName="react-datepicker-popper"
                         disabled={formData.current}
-                        minDate={formData.startDate}
+                        minDate={formData.startDate ?? undefined}
                       />
                       <label className="flex items-center gap-2 text-sm text-zinc-300">
                         <input

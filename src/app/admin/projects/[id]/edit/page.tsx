@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -33,7 +34,7 @@ interface ProjectFeature {
   id?: string;
   title: string;
   description: string;
-  impact: string;
+  impact?: string;
   order: number;
 }
 
@@ -50,6 +51,10 @@ export default function EditProjectPage() {
     title: '',
     subtitle: '',
     description: '',
+    category: '',
+    role: '',
+    startDate: '',
+    endDate: '',
     images: [] as string[],
     website: '',
     repository: '',
@@ -85,6 +90,10 @@ export default function EditProjectPage() {
           title: project.title,
           subtitle: project.subtitle || '',
           description: project.description,
+          category: project.category || '',
+          role: project.role || '',
+          startDate: project.startDate || '',
+          endDate: project.endDate || '',
           images: project.images?.map(img => img.url) || [],
           website: project.website || '',
           repository: project.repository || '',
@@ -101,6 +110,8 @@ export default function EditProjectPage() {
         setMessage({ type: 'error', text: 'Failed to load project' });
       }
     } catch (error) {
+      console.log(error);
+      
       setMessage({ type: 'error', text: 'An error occurred while loading the project' });
     } finally {
       setLoading(false);
@@ -226,6 +237,8 @@ export default function EditProjectPage() {
         setMessage({ type: 'error', text: errorData.error || 'Failed to update project' });
       }
     } catch (error) {
+      console.log(error);
+      
       setMessage({ type: 'error', text: 'An error occurred while updating the project' });
     } finally {
       setSaving(false);
@@ -356,6 +369,64 @@ export default function EditProjectPage() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
                   placeholder="Enter project subtitle"
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-6 mt-6">
+              <div>
+                <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  Category
+                </label>
+                <input
+                  type="text"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
+                  placeholder="e.g., Web Application"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  Role
+                </label>
+                <input
+                  type="text"
+                  name="role"
+                  value={formData.role}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
+                  placeholder="e.g., Lead Developer"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  Start Date
+                </label>
+                <input
+                  type="text"
+                  name="startDate"
+                  value={formData.startDate}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
+                  placeholder="e.g., Jan 2022"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  End Date
+                </label>
+                <input
+                  type="text"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
+                  placeholder="e.g., Present"
                 />
               </div>
             </div>
@@ -506,7 +577,7 @@ export default function EditProjectPage() {
               
               {techStack.length === 0 && (
                 <div className="text-center py-8 text-zinc-500">
-                  No technologies added yet. Click "Add Technology" to get started.
+                  No technologies added yet. Click &quot;Add Technology&quot; to get started.
                 </div>
               )}
             </div>
@@ -606,7 +677,7 @@ export default function EditProjectPage() {
               
               {metrics.length === 0 && (
                 <div className="text-center py-8 text-zinc-500">
-                  No metrics added yet. Click "Add Metric" to showcase project impact.
+                  No metrics added yet. Click &quot;Add Metric&quot; to showcase project impact.
                 </div>
               )}
             </div>
@@ -689,7 +760,7 @@ export default function EditProjectPage() {
               
               {features.length === 0 && (
                 <div className="text-center py-8 text-zinc-500">
-                  No features added yet. Click "Add Feature" to highlight key achievements.
+                  No features added yet. Click &quot;Add Feature&quot; to highlight key achievements.
                 </div>
               )}
             </div>

@@ -8,6 +8,7 @@ import {
   Loader2,
   AlertCircle
 } from "lucide-react";
+import Image from "next/image";
 
 interface ImageUploaderProps {
   value?: string;
@@ -141,9 +142,11 @@ function ImageUploader({
           className="relative group"
         >
           <div className="relative w-full h-48 bg-zinc-800 rounded-lg overflow-hidden border border-zinc-700">
-            <img
+            <Image
               src={value}
               alt="Uploaded image"
+              width={400}
+              height={192}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">

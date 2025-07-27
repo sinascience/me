@@ -15,6 +15,7 @@ import {
   User
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { Blog } from "@/types/cms";
 
 export default function AdminBlogPage() {
@@ -194,9 +195,11 @@ export default function AdminBlogPage() {
                       {/* Featured Image */}
                       {blog.image && (
                         <div className="mb-4">
-                          <img
+                          <Image
                             src={blog.image}
                             alt={blog.title}
+                            width={400}
+                            height={128}
                             className="w-full h-32 object-cover rounded-lg border border-zinc-700"
                             onError={(e) => {
                               e.currentTarget.style.display = 'none';

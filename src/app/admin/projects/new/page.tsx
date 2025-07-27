@@ -7,11 +7,6 @@ import {
   Save, 
   Plus, 
   Trash2, 
-  Upload,
-  Globe,
-  Github,
-  Star,
-  Eye,
   AlertCircle
 } from "lucide-react";
 import Link from "next/link";
@@ -51,6 +46,10 @@ export default function NewProjectPage() {
     title: '',
     subtitle: '',
     description: '',
+    category: '',
+    role: '',
+    startDate: '',
+    endDate: '',
     images: [] as string[],
     website: '',
     repository: '',
@@ -172,7 +171,7 @@ export default function NewProjectPage() {
         const errorData = await response.json();
         setMessage({ type: 'error', text: errorData.error || 'Failed to create project' });
       }
-    } catch (error) {
+    } catch {
       setMessage({ type: 'error', text: 'An error occurred while creating the project' });
     } finally {
       setLoading(false);
@@ -268,6 +267,64 @@ export default function NewProjectPage() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
                   placeholder="Enter project subtitle"
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-6 mt-6">
+              <div>
+                <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  Category
+                </label>
+                <input
+                  type="text"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
+                  placeholder="e.g., Web Application"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  Role
+                </label>
+                <input
+                  type="text"
+                  name="role"
+                  value={formData.role}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
+                  placeholder="e.g., Lead Developer"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  Start Date
+                </label>
+                <input
+                  type="text"
+                  name="startDate"
+                  value={formData.startDate}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
+                  placeholder="e.g., Jan 2022"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-zinc-300 mb-2">
+                  End Date
+                </label>
+                <input
+                  type="text"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:border-blue-500 focus:outline-none transition-colors duration-300"
+                  placeholder="e.g., Present"
                 />
               </div>
             </div>
@@ -397,7 +454,7 @@ export default function NewProjectPage() {
             </div>
 
             <div className="space-y-4">
-              {techStack.map((tech, index) => (
+              {techStack.map((tech) => (
                 <div key={tech.id} className="flex items-center gap-4">
                   <input
                     type="text"
@@ -418,7 +475,7 @@ export default function NewProjectPage() {
               
               {techStack.length === 0 && (
                 <div className="text-center py-8 text-zinc-500">
-                  No technologies added yet. Click "Add Technology" to get started.
+                  No technologies added yet. Click &quot;Add Technology&quot; to get started.
                 </div>
               )}
             </div>
@@ -444,7 +501,7 @@ export default function NewProjectPage() {
             </div>
 
             <div className="space-y-6">
-              {metrics.map((metric, index) => (
+              {metrics.map((metric) => (
                 <div key={metric.id} className="bg-zinc-800 rounded-lg p-4">
                   <div className="grid md:grid-cols-4 gap-4">
                     <div>
@@ -518,7 +575,7 @@ export default function NewProjectPage() {
               
               {metrics.length === 0 && (
                 <div className="text-center py-8 text-zinc-500">
-                  No metrics added yet. Click "Add Metric" to showcase project impact.
+                  No metrics added yet. Click &quot;Add Metric&quot; to showcase project impact.
                 </div>
               )}
             </div>
@@ -544,7 +601,7 @@ export default function NewProjectPage() {
             </div>
 
             <div className="space-y-6">
-              {features.map((feature, index) => (
+              {features.map((feature) => (
                 <div key={feature.id} className="bg-zinc-800 rounded-lg p-4">
                   <div className="space-y-4">
                     <div>
@@ -601,7 +658,7 @@ export default function NewProjectPage() {
               
               {features.length === 0 && (
                 <div className="text-center py-8 text-zinc-500">
-                  No features added yet. Click "Add Feature" to highlight key achievements.
+                  No features added yet. Click &quot;Add Feature&quot; to highlight key achievements.
                 </div>
               )}
             </div>

@@ -1,15 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Clock, User, Tag, ArrowLeft, Share2, Eye } from "lucide-react";
+import { Calendar, Clock, User, ArrowLeft, Share2, Eye } from "lucide-react";
 import { Blog } from "@/types/cms";
 
 export default function BlogDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -93,7 +92,7 @@ export default function BlogDetailPage() {
             {error || 'Blog post not found'}
           </h1>
           <p className="text-zinc-400 mb-8">
-            The blog post you're looking for doesn't exist or has been removed.
+            The blog post you&apos;re looking for doesn&apos;t exist or has been removed.
           </p>
           <Link
             href="/blog"
