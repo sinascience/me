@@ -138,7 +138,7 @@ export function SkillsSection() {
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-bold mb-6">
-          <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
             Technical Expertise
           </span>
         </h2>
@@ -202,7 +202,7 @@ export function SkillsSection() {
                   whileHover={{ scale: 1.1, rotateZ: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-600/20 border border-blue-500/30 flex items-center justify-center group-hover:from-blue-500/30 group-hover:to-indigo-600/30 transition-all duration-500">
+                  <div className="w-16 h-16 rounded-xl bg-linear-to-br from-blue-500/20 to-indigo-600/20 border border-blue-500/30 flex items-center justify-center group-hover:from-blue-500/30 group-hover:to-indigo-600/30 transition-all duration-500">
                     <motion.div
                       whileHover={{ scale: 1.2 }}
                       transition={{ type: "spring", stiffness: 400 }}
@@ -270,7 +270,7 @@ export function SkillsSection() {
         viewport={{ once: true }}
         className="mt-16 text-center"
       >
-        <h3 className="text-3xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+        <h3 className="text-3xl font-bold mb-3 bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
           Technology Stack
         </h3>
         <p className="text-lg text-zinc-400 mb-8 max-w-2xl mx-auto">
@@ -308,13 +308,13 @@ export function SkillsSection() {
                 damping: 25,
                 duration: 0.2,
               }}
-              className={`${tech.bg} border ${tech.border} rounded-xl py-3 px-6 cursor-pointer flex-shrink-0 min-w-12 flex items-center justify-center group hover:border-opacity-80 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-200 ease-out`}
+              className={`${tech.bg} border ${tech.border} rounded-xl py-3 px-6 cursor-pointer shrink-0 min-w-12 flex items-center justify-center group hover:border-opacity-80 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-200 ease-out`}
               style={{
                 transformStyle: "preserve-3d",
               }}
             >
               <motion.span
-                className={`text-xs font-semibold bg-gradient-to-r ${tech.color} bg-clip-text text-transparent text-center leading-tight group-hover:scale-110 transition-transform duration-200 ease-out`}
+                className={`text-xs font-semibold bg-linear-to-r ${tech.color} bg-clip-text text-transparent text-center leading-tight group-hover:scale-110 transition-transform duration-200 ease-out`}
                 whileHover={{
                   backgroundPosition: ["0% 50%", "100% 50%"],
                 }}
@@ -333,8 +333,8 @@ export function SkillsSection() {
         </motion.div>
 
         {/* Gradient overlays for fade effect */}
-        <div className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-[#0f0f0f] to-transparent pointer-events-none z-10"></div>
-        <div className="absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none z-10"></div>
+        <div className="absolute top-0 left-0 h-full w-24 bg-linear-to-r from-[#0f0f0f] to-transparent pointer-events-none z-10"></div>
+        <div className="absolute top-0 right-0 h-full w-24 bg-linear-to-l from-[#0f0f0f] to-transparent pointer-events-none z-10"></div>
       </div>
 
       {/* Experience Level Indicators */}
@@ -346,15 +346,15 @@ export function SkillsSection() {
         className="mt-8 flex flex-wrap justify-center gap-6 text-sm"
       >
         <div className="flex items-center">
-          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-green-400 to-green-600 mr-2"></div>
+          <div className="w-3 h-3 rounded-full bg-linear-to-r from-green-400 to-green-600 mr-2"></div>
           <span className="text-zinc-400">Expert (3+ years)</span>
         </div>
         <div className="flex items-center">
-          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 mr-2"></div>
+          <div className="w-3 h-3 rounded-full bg-linear-to-r from-blue-400 to-blue-600 mr-2"></div>
           <span className="text-zinc-400">Advanced (2+ years)</span>
         </div>
         <div className="flex items-center">
-          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 mr-2"></div>
+          <div className="w-3 h-3 rounded-full bg-linear-to-r from-purple-400 to-purple-600 mr-2"></div>
           <span className="text-zinc-400">Proficient (1+ years)</span>
         </div>
       </motion.div> */}

@@ -73,7 +73,7 @@ export default function BlogPage() {
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
               Tech Blog
             </span>
           </h1>
@@ -138,7 +138,7 @@ export default function BlogPage() {
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/60 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-zinc-900/60 to-transparent" />
                         {blog.featured && (
                           <div className="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                             Featured

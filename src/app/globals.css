@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Force dark mode globally - prevent light mode flash */
 html {
@@ -26,13 +26,13 @@ body.light {
 }
 
 * {
-  border-color: theme('colors.zinc.800');
+  border-color: var(--color-zinc-800);
 }
 
 /* Default dark scrollbar for all browsers */
 * {
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.zinc.600') theme('colors.zinc.900');
+  scrollbar-color: var(--color-zinc-600) var(--color-zinc-900);
 }
 
 *::-webkit-scrollbar {
@@ -41,17 +41,17 @@ body.light {
 }
 
 *::-webkit-scrollbar-track {
-  background: theme('colors.zinc.900');
+  background: var(--color-zinc-900);
   border-radius: 4px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: theme('colors.zinc.600');
+  background: var(--color-zinc-600);
   border-radius: 4px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: theme('colors.zinc.500');
+  background: var(--color-zinc-500);
 }
 
 :root {

@@ -227,7 +227,7 @@ export function Lightbox({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                   transition={{ delay: 0.15, duration: 0.2 }}
-                  className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/40 to-transparent backdrop-blur-md border-t border-white/10 p-4 rounded-b-lg"
+                  className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/40 to-transparent backdrop-blur-md border-t border-white/10 p-4 rounded-b-lg"
                 >
                   <h3 className="text-white text-lg font-medium">{currentImage.title}</h3>
                 </motion.div>
@@ -244,7 +244,7 @@ export function Lightbox({
             exit={{ opacity: 0, y: 20 }}
             className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-10"
           >
-            <div className="flex gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-2 max-w-screen-sm overflow-x-auto">
+            <div className="flex gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-2 max-w-(--breakpoint-sm) overflow-x-auto">
               {images.map((image, index) => (
                 <motion.button
                   key={index}
@@ -256,7 +256,7 @@ export function Lightbox({
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`relative w-16 h-12 rounded overflow-hidden flex-shrink-0 border-2 transition-all duration-200 ${
+                  className={`relative w-16 h-12 rounded overflow-hidden shrink-0 border-2 transition-all duration-200 ${
                     index === currentIndex 
                       ? 'border-blue-400 shadow-lg shadow-blue-400/50' 
                       : 'border-transparent hover:border-white/50'

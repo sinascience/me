@@ -54,7 +54,7 @@ export function ExperienceSection() {
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-bold mb-6">
-          <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
             Professional Journey
           </span>
         </h2>
@@ -65,7 +65,7 @@ export function ExperienceSection() {
 
       <div className="relative">
         {/* Timeline line */}
-        <div className="absolute left-8 md:left-1/2 transform md:-translate-x-px h-full w-0.5 bg-gradient-to-b from-blue-400 via-indigo-400 to-purple-400"></div>
+        <div className="absolute left-8 md:left-1/2 transform md:-translate-x-px h-full w-0.5 bg-linear-to-b from-blue-400 via-indigo-400 to-purple-400"></div>
 
         {experiences.map((exp, index) => (
           <motion.div
@@ -79,7 +79,7 @@ export function ExperienceSection() {
             }`}
           >
             {/* Timeline dot */}
-            <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full border-4 border-zinc-900 z-10"></div>
+            <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-linear-to-r from-blue-400 to-indigo-400 rounded-full border-4 border-zinc-900 z-10"></div>
 
             {/* Content card */}
             <div className={`w-full md:w-5/12 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'}`}>

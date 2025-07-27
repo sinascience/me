@@ -149,7 +149,7 @@ export function ContactSection() {
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-bold mb-6">
-          <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
             Let&apos;s Work Together
           </span>
         </h2>
@@ -354,7 +354,7 @@ export function ContactSection() {
                 disabled={status.type === "loading"}
                 whileHover={status.type !== "loading" ? { scale: 1.02 } : {}}
                 whileTap={status.type !== "loading" ? { scale: 0.98 } : {}}
-                className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center justify-center gap-2 hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="w-full px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center justify-center gap-2 hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {status.type === "loading" ? (
                   <>

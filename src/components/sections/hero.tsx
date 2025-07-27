@@ -142,11 +142,11 @@ export function HeroSection() {
               </div>
 
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-zinc-100 to-zinc-300 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-zinc-100 to-zinc-300 bg-clip-text text-transparent">
                   {personalInfo.greeting}
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                   {personalInfo.name}
                 </span>
               </h1>
@@ -185,7 +185,7 @@ export function HeroSection() {
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-medium shadow-lg hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+                    className="px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 text-white rounded-xl font-medium shadow-lg hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
                   >
                     View My Work
                   </motion.button>
@@ -228,7 +228,7 @@ export function HeroSection() {
                 repeat: Infinity,
                 ease: "linear",
               }}
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 blur-3xl"
+              className="absolute inset-0 rounded-full bg-linear-to-r from-blue-500/10 to-indigo-500/10 blur-3xl"
             />
 
             {/* Photo container */}
@@ -243,7 +243,7 @@ export function HeroSection() {
               style={{ transformStyle: "preserve-3d" }}
             >
               {/* Main photo */}
-              <div className="w-full h-full rounded-3xl bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 backdrop-blur-sm border border-zinc-700/50 flex items-center justify-center overflow-hidden relative group">
+              <div className="w-full h-full rounded-3xl bg-linear-to-br from-zinc-800/50 to-zinc-900/50 backdrop-blur-sm border border-zinc-700/50 flex items-center justify-center overflow-hidden relative group">
                 <Image
                   src={personalInfo.profile_photo || "/profile.png"}
                   alt={`${personalInfo.name} - ${personalInfo.profession}`}

@@ -182,7 +182,7 @@ export default function ProjectsPage() {
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
               My Projects
             </span>
           </h1>
@@ -208,7 +208,7 @@ export default function ProjectsPage() {
                 {/* Project Image */}
                 <div className="lg:w-1/2">
                   <div className="relative group">
-                    <div className="bg-gradient-to-br from-blue-400/10 to-indigo-500/10 rounded-xl p-4 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300">
+                    <div className="bg-linear-to-br from-blue-400/10 to-indigo-500/10 rounded-xl p-4 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300">
                       <div 
                         className="bg-zinc-800 rounded-lg h-64 flex items-center justify-center overflow-hidden cursor-pointer relative group"
                         onClick={() => openLightbox(project, 0)}
@@ -289,7 +289,7 @@ export default function ProjectsPage() {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center gap-2 hover:shadow-lg transition-all duration-300"
+                        className="px-6 py-3 bg-linear-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center gap-2 hover:shadow-lg transition-all duration-300"
                       >
                         <Globe className="h-4 w-4" />
                         View Live Site
@@ -388,13 +388,13 @@ export default function ProjectsPage() {
                         className="bg-zinc-800/30 border border-zinc-700 rounded-lg p-4 hover:border-blue-500/50 transition-colors duration-300"
                       >
                         <div className="flex items-start mb-2">
-                          <CheckCircle className="h-4 w-4 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 text-green-400 mr-2 mt-0.5 shrink-0" />
                           <h5 className="text-sm font-semibold text-zinc-200">{feature.title}</h5>
                         </div>
                         <p className="text-zinc-300 mb-2 text-sm leading-relaxed">{feature.description}</p>
                         {feature.impact && (
                           <div className="flex items-start">
-                            <Zap className="h-3 w-3 text-yellow-400 mr-2 mt-0.5 flex-shrink-0" />
+                            <Zap className="h-3 w-3 text-yellow-400 mr-2 mt-0.5 shrink-0" />
                             <p className="text-xs text-zinc-400 italic">{feature.impact}</p>
                           </div>
                         )}
@@ -426,7 +426,7 @@ export default function ProjectsPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium"
+                className="px-8 py-3 bg-linear-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium"
               >
                 Get In Touch
               </motion.button>

@@ -58,7 +58,7 @@ export const FloatingNav = ({
           duration: 0.2,
         }}
         className={cn(
-          "flex max-w-fit fixed top-10 inset-x-0 mx-auto border border-zinc-800 rounded-full bg-zinc-900/80 backdrop-blur-md shadow-2xl shadow-blue-500/10 z-[5000] px-6 py-3 items-center justify-center space-x-6",
+          "flex max-w-fit fixed top-10 inset-x-0 mx-auto border border-zinc-800 rounded-full bg-zinc-900/80 backdrop-blur-md shadow-2xl shadow-blue-500/10 z-5000 px-6 py-3 items-center justify-center space-x-6",
           className
         )}
       >
@@ -73,7 +73,7 @@ export const FloatingNav = ({
           >
             <span className="block sm:hidden group-hover:scale-110 transition-transform duration-200">{navItem.icon}</span>
             <span className="hidden sm:block text-sm font-medium group-hover:scale-105 transition-transform duration-200">{navItem.name}</span>
-            <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+            <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-1 bg-linear-to-r from-transparent via-blue-500 to-transparent h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
           </a>
         ))}
       </motion.div>

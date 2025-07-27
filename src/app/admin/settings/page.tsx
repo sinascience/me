@@ -280,7 +280,7 @@ export default function AdminSettingsPage() {
                 disabled={loading}
                 whileHover={!loading ? { scale: 1.02 } : {}}
                 whileTap={!loading ? { scale: 0.98 } : {}}
-                className="p-6 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-xl text-left hover:border-blue-500/50 transition-all duration-300 disabled:opacity-50"
+                className="p-6 bg-linear-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-xl text-left hover:border-blue-500/50 transition-all duration-300 disabled:opacity-50"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <RefreshCw className={`h-6 w-6 text-blue-400 ${loading ? 'animate-spin' : ''}`} />
@@ -296,7 +296,7 @@ export default function AdminSettingsPage() {
                 disabled={loading}
                 whileHover={!loading ? { scale: 1.02 } : {}}
                 whileTap={!loading ? { scale: 0.98 } : {}}
-                className="p-6 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl text-left hover:border-purple-500/50 transition-all duration-300 disabled:opacity-50"
+                className="p-6 bg-linear-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl text-left hover:border-purple-500/50 transition-all duration-300 disabled:opacity-50"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <Database className="h-6 w-6 text-purple-400" />
@@ -392,13 +392,13 @@ export default function AdminSettingsPage() {
                         className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 flex items-center justify-between hover:border-zinc-600 transition-colors"
                       >
                         <div className="flex items-center gap-4 flex-1 min-w-0">
-                          <div className="p-2 bg-zinc-700 rounded-lg flex-shrink-0">
+                          <div className="p-2 bg-zinc-700 rounded-lg shrink-0">
                             <TypeIcon className="h-4 w-4 text-blue-400" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
                               <h4 className="font-medium text-zinc-200 truncate">{setting.key}</h4>
-                              <span className={`text-xs px-2 py-1 rounded-full flex-shrink-0 ${{
+                              <span className={`text-xs px-2 py-1 rounded-full shrink-0 ${{
                                 'string': 'bg-blue-500/20 text-blue-400',
                                 'number': 'bg-orange-500/20 text-orange-400', 
                                 'boolean': 'bg-green-500/20 text-green-400',

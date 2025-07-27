@@ -91,7 +91,7 @@ export function ProjectsSection() {
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-bold mb-6">
-          <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
             Featured Projects
           </span>
         </h2>
@@ -129,7 +129,7 @@ export function ProjectsSection() {
                       openLightbox(images, 0);
                     }}
                   >
-                    <div className="bg-gradient-to-br from-blue-400/10 to-indigo-500/10 rounded-xl p-4 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300">
+                    <div className="bg-linear-to-br from-blue-400/10 to-indigo-500/10 rounded-xl p-4 border border-zinc-800 hover:border-blue-500/50 transition-all duration-300">
                       <div className="bg-zinc-800 rounded-lg h-80 flex items-center justify-center overflow-hidden">
                         <Image
                           src={featuredProject.images[0].url}
@@ -151,7 +151,7 @@ export function ProjectsSection() {
               <div className="space-y-6">
                 {featuredProject.images[1] && (
                   <div
-                    className="bg-gradient-to-br from-purple-400/10 to-pink-500/10 rounded-xl p-4 border border-zinc-800 hover:border-purple-500/50 transition-all duration-300 cursor-pointer group"
+                    className="bg-linear-to-br from-purple-400/10 to-pink-500/10 rounded-xl p-4 border border-zinc-800 hover:border-purple-500/50 transition-all duration-300 cursor-pointer group"
                     onClick={() => {
                       const images = featuredProject.images.map((img, idx) => ({
                         src: img.url,
@@ -177,7 +177,7 @@ export function ProjectsSection() {
 
                 {featuredProject.images[2] && (
                   <div
-                    className="bg-gradient-to-br from-green-400/10 to-emerald-500/10 rounded-xl p-4 border border-zinc-800 hover:border-green-500/50 transition-all duration-300 cursor-pointer group"
+                    className="bg-linear-to-br from-green-400/10 to-emerald-500/10 rounded-xl p-4 border border-zinc-800 hover:border-green-500/50 transition-all duration-300 cursor-pointer group"
                     onClick={() => {
                       const images = featuredProject.images.map((img, idx) => ({
                         src: img.url,
@@ -238,7 +238,7 @@ export function ProjectsSection() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center justify-center gap-2 hover:shadow-lg transition-all duration-300"
+                    className="px-8 py-4 bg-linear-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center justify-center gap-2 hover:shadow-lg transition-all duration-300"
                   >
                     <Globe className="h-5 w-5" />
                     View Live Site
@@ -335,7 +335,7 @@ export function ProjectsSection() {
                         className="bg-zinc-800/30 border border-zinc-700 rounded-lg p-6 hover:border-blue-500/50 transition-colors duration-300"
                       >
                         <div className="flex items-start mb-3">
-                          <CheckCircle className="h-5 w-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="h-5 w-5 text-green-400 mr-3 mt-0.5 shrink-0" />
                           <h5 className="text-lg font-semibold text-zinc-200">
                             {feature.title}
                           </h5>
@@ -345,7 +345,7 @@ export function ProjectsSection() {
                         </p>
                         {feature.impact && (
                           <div className="flex items-start">
-                            <Zap className="h-4 w-4 text-yellow-400 mr-2 mt-0.5 flex-shrink-0" />
+                            <Zap className="h-4 w-4 text-yellow-400 mr-2 mt-0.5 shrink-0" />
                             <p className="text-sm text-zinc-400 italic">
                               {feature.impact}
                             </p>
@@ -383,7 +383,7 @@ export function ProjectsSection() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center gap-2"
+                className="px-8 py-3 bg-linear-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium flex items-center gap-2"
               >
                 <ExternalLink className="h-4 w-4" />
                 View All Projects

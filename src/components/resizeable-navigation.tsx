@@ -35,7 +35,7 @@ export function ResizableNavigation() {
     <Navbar>
       {/* Desktop Navigation */}
       <NavBody className="bg-transparent backdrop-blur-xl">
-        <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+        <div className="text-xl font-bold bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
           me.
         </div>
         <NavItems 
@@ -71,7 +71,7 @@ export function ResizableNavigation() {
       {/* Mobile Navigation */}
       <MobileNav className="bg-[#0f0f0f]/80 backdrop-blur-xl border-b border-zinc-800/50">
         <MobileNavHeader className="bg-transparent backdrop-blur-xl">
-          <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+          <div className="text-xl font-bold bg-linear-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
             Anis Fajar
           </div>
           <MobileNavToggle

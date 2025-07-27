@@ -213,7 +213,7 @@ export default function AdminDashboard() {
               <Link href={item.href}>
                 <div className={`${
                   item.primary 
-                    ? 'bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border-blue-500/50' 
+                    ? 'bg-linear-to-r from-blue-500/20 to-indigo-500/20 border-blue-500/50' 
                     : 'bg-zinc-900 border-zinc-800'
                 } border rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/10 h-full`}>
                   <div className="flex items-center justify-between mb-4">
@@ -257,19 +257,19 @@ export default function AdminDashboard() {
           <h3 className="text-2xl font-bold mb-6">Quick Actions</h3>
           <div className="grid md:grid-cols-3 gap-6">
             <Link href="/admin/blog/new">
-              <div className="bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="bg-linear-to-r from-blue-500 to-indigo-500 rounded-xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
                 <Plus className="h-8 w-8 text-white mx-auto mb-3" />
                 <div className="text-white font-medium">Create New Blog Post</div>
               </div>
             </Link>
             <Link href="/admin/projects/new">
-              <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="bg-linear-to-r from-purple-500 to-pink-500 rounded-xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
                 <Plus className="h-8 w-8 text-white mx-auto mb-3" />
                 <div className="text-white font-medium">Add New Project</div>
               </div>
             </Link>
             <Link href="/" target="_blank">
-              <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="bg-linear-to-r from-green-500 to-emerald-500 rounded-xl p-6 text-center hover:shadow-lg transition-shadow duration-300">
                 <Eye className="h-8 w-8 text-white mx-auto mb-3" />
                 <div className="text-white font-medium">View Live Site</div>
               </div>
