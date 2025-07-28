@@ -76,7 +76,10 @@ export default function PersonalInfoAdmin() {
 
   const fetchPersonalInfo = async () => {
     try {
-      const response = await fetch('/api/cms/personal?admin=true');
+      const auth = localStorage.getItem('admin_auth');
+      const response = await fetch('/api/cms/personal?admin=true', {
+        headers: { 'Authorization': `Bearer ${auth}` }
+      });
       if (response.ok) {
         const data: PersonalInfo = await response.json();
         
@@ -122,9 +125,13 @@ export default function PersonalInfoAdmin() {
         years_experience: { value: formData.years_experience, type: 'number' }
       };
 
+      const auth = localStorage.getItem('admin_auth');
       const response = await fetch('/api/cms/personal', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth}`
+        },
         body: JSON.stringify(personalData)
       });
 
